@@ -14,7 +14,7 @@ export default function Dashboard() {
 
     const fetchUser = async () => {
       try {
-        const response = await fetch(`http://localhost:8000/api/users/me?token=${token}`);
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/users/me?token=${token}`);
         if (response.ok) {
           const data = await response.json();
           setUsername(data.username);
