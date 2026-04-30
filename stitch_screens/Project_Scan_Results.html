@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Vulnerability Scan Results - The Sovereign Sentinel</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-primary": "#00354a",
+                        "outline-variant": "#45464d",
+                        "inverse-on-surface": "#283044",
+                        "tertiary": "#4edea3",
+                        "primary-container": "#001a27",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "on-surface": "#dae2fd",
+                        "secondary-fixed": "#d3e4fe",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "inverse-primary": "#00668a",
+                        "surface": "#0b1326",
+                        "primary": "#7bd0ff",
+                        "secondary-container": "#3a4a5f",
+                        "on-tertiary-fixed-variant": "#005236",
+                        "on-tertiary-container": "#009365",
+                        "on-background": "#dae2fd",
+                        "on-secondary-fixed": "#0b1c30",
+                        "outline": "#909097",
+                        "error": "#ffb4ab",
+                        "on-primary-fixed": "#001e2c",
+                        "on-secondary-container": "#a9bad3",
+                        "tertiary-container": "#001c10",
+                        "on-tertiary": "#003824",
+                        "surface-tint": "#7bd0ff",
+                        "surface-dim": "#0b1326",
+                        "on-surface-variant": "#c6c6cd",
+                        "inverse-surface": "#dae2fd",
+                        "primary-fixed": "#c4e7ff",
+                        "surface-container-low": "#131b2e",
+                        "surface-bright": "#31394d",
+                        "primary-fixed-dim": "#7bd0ff",
+                        "on-error": "#690005",
+                        "surface-container": "#171f33",
+                        "tertiary-fixed-dim": "#4edea3",
+                        "surface-container-highest": "#2d3449",
+                        "surface-container-high": "#222a3d",
+                        "error-container": "#93000a",
+                        "surface-container-lowest": "#060e20",
+                        "background": "#0b1326",
+                        "tertiary-fixed": "#6ffbbe",
+                        "on-tertiary-fixed": "#002113",
+                        "secondary": "#b7c8e1",
+                        "on-primary-fixed-variant": "#004c69",
+                        "on-primary-container": "#008abb",
+                        "surface-variant": "#2d3449",
+                        "on-secondary": "#213145",
+                        "on-error-container": "#ffdad6"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "label": ["Inter", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .text-display-lg { font-size: 3.5rem; line-height: 1.1; letter-spacing: -0.02em; }
+        .text-display-sm { font-size: 2.25rem; line-height: 1.2; letter-spacing: -0.02em; }
+        .text-headline-md { font-size: 1.5rem; line-height: 1.3; letter-spacing: -0.02em; }
+        .text-title-md { font-size: 1rem; line-height: 1.5; font-weight: 500; }
+        .text-label-md { font-size: 0.75rem; line-height: 1.33; font-weight: 600; letter-spacing: 0.05em; }
+        .text-body-md { font-size: 0.875rem; line-height: 1.43; }
+        
+        /* Custom Table Spacing */
+        .data-table-row {
+            margin-bottom: 4px;
+        }
+        .data-table-row:last-child {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body h-screen flex overflow-hidden selection:bg-primary-container selection:text-primary">
+<!-- SideNavBar -->
+<nav class="hidden md:flex flex-col h-full border-r border-slate-800/20 bg-[#060e20] dark:bg-[#060e20] h-screen w-64 fixed left-0 top-0 z-40">
+<div class="p-6 flex flex-col gap-1 bg-[#0b1326]">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-10 h-10 rounded-lg overflow-hidden bg-surface-container-high shrink-0">
+<img alt="System Administrator" class="w-full h-full object-cover" data-alt="professional portrait of a male system administrator in a dark server room setting, soft dramatic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAip4IlOzLFMJi9GFY7QJeKlOknQcDcalGfiJptBxo9p8Q1XZ-wmfKcOo11J1-3kLCHhu5GvyP2qe8BIDc9OuoiJk3VcZyN81Di3ntxf0GMF__JkWM40_eqhiVukwyIubLO8WEhWvVA8Xh_90Q5xPQh2jdxgWm9zKgmwGLhMC2EKwgALXdMVQBO4TfD6NYDQ_00ZZbqutKze52nPGy_j6CnvWz3ZeT_ootMIRJhYI4xmm6HI0Gg37m4ShQD7aZrpf-bWZnz3UETo9I"/>
+</div>
+<div>
+<h2 class="text-on-surface font-headline font-bold text-sm tracking-tight">Sentinel Prime</h2>
+<p class="text-on-surface-variant text-xs">Fortified Archive v2.4</p>
+</div>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto py-4 px-3 flex flex-col gap-1">
+<a class="text-slate-400 p-3 flex items-center gap-3 hover:bg-[#2d3449]/50 hover:text-white transition-all ease-in-out duration-200 rounded-md" href="#">
+<span class="material-symbols-outlined text-xl">analytics</span>
+<span class="font-['Inter'] text-sm tracking-normal">Security Metrics</span>
+</a>
+<a class="bg-[#2d3449] text-sky-300 font-semibold rounded-md p-3 flex items-center gap-3 transition-all ease-in-out duration-200" href="#">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">security</span>
+<span class="font-['Inter'] text-sm tracking-normal">Vulnerability Logs</span>
+</a>
+<a class="text-slate-400 p-3 flex items-center gap-3 hover:bg-[#2d3449]/50 hover:text-white transition-all ease-in-out duration-200 rounded-md" href="#">
+<span class="material-symbols-outlined text-xl">build</span>
+<span class="font-['Inter'] text-sm tracking-normal">Remediation Hub</span>
+</a>
+<a class="text-slate-400 p-3 flex items-center gap-3 hover:bg-[#2d3449]/50 hover:text-white transition-all ease-in-out duration-200 rounded-md" href="#">
+<span class="material-symbols-outlined text-xl">policy</span>
+<span class="font-['Inter'] text-sm tracking-normal">Policy Engine</span>
+</a>
+</div>
+<div class="p-4 mt-auto border-t border-slate-800/20">
+<button class="w-full bg-gradient-to-br from-primary to-on-primary-container text-on-primary font-medium text-sm py-2.5 rounded-md hover:shadow-[0_0_16px_rgba(123,208,255,0.2)] transition-all">
+                Run Global Scan
+            </button>
+</div>
+<div class="pb-4 px-3 flex flex-col gap-1">
+<a class="text-slate-400 p-3 flex items-center gap-3 hover:bg-[#2d3449]/50 hover:text-white transition-all ease-in-out duration-200 rounded-md" href="#">
+<span class="material-symbols-outlined text-xl">menu_book</span>
+<span class="font-['Inter'] text-sm tracking-normal">Documentation</span>
+</a>
+<a class="text-slate-400 p-3 flex items-center gap-3 hover:bg-[#2d3449]/50 hover:text-white transition-all ease-in-out duration-200 rounded-md" href="#">
+<span class="material-symbols-outlined text-xl">contact_support</span>
+<span class="font-['Inter'] text-sm tracking-normal">Support</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 flex flex-col h-full overflow-hidden md:ml-64 relative bg-surface">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center px-8 py-4 w-full sticky top-0 z-50 bg-[#0b1326] dark:bg-[#0b1326] shadow-[0_4px_32px_-4px_rgba(0,0,0,0.5)]">
+<div class="flex items-center gap-8">
+<div class="text-xl font-bold uppercase tracking-tighter text-white font-['Manrope']">
+                    The Sovereign Sentinel
+                </div>
+<nav class="hidden lg:flex items-center gap-6">
+<a class="text-slate-400 font-medium hover:text-white transition-colors duration-200 font-['Manrope'] tracking-tight text-sm" href="#">Dashboard</a>
+<a class="text-sky-400 border-b-2 border-sky-400 pb-1 font-['Manrope'] tracking-tight text-sm scale-95 duration-100" href="#">Scans</a>
+<a class="text-slate-400 font-medium hover:text-white transition-colors duration-200 font-['Manrope'] tracking-tight text-sm" href="#">Remediation</a>
+<a class="text-slate-400 font-medium hover:text-white transition-colors duration-200 font-['Manrope'] tracking-tight text-sm" href="#">Policies</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative hidden md:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+<input class="bg-surface-container-highest border-none rounded-md pl-9 pr-4 py-1.5 text-sm text-on-surface placeholder:text-on-surface-variant/50 focus:ring-2 focus:ring-primary w-64 transition-all" placeholder="Search logs..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-slate-400 hover:text-white transition-colors duration-200 scale-95 relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full border border-[#0b1326]"></span>
+</button>
+<button class="text-slate-400 hover:text-white transition-colors duration-200 scale-95">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container ml-2">
+<img alt="Security Officer Profile" class="w-full h-full object-cover" data-alt="professional portrait of a female security officer in a dark, tech-focused environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBUC9elf738mQXTk4i7bmYh5LE0PR5GYJF8nsxOG_gRnwvMORgFYmk-KIL7zde9rK4VpeaIWROnuJ3GKTNMk5ZtDZ5jfws54pHWRAJ9eeoXMX3FKvn8-eH428KdO2fbuAR9QeumPN2pUhx14axtAroAltX30LYrLN2YVbj7Lz6heqZt-Bey0xVENxpkGstbOsrwss4FHGbcl6t-Dvw-0emf-eXgzTgW0hvZE345wPs4eihUGLL8oTCWfy4zPet0nMgnr3JPpUcG-s"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Scrollable Content -->
+<div class="flex-1 overflow-y-auto p-8 2xl:p-12 space-y-8">
+<!-- Page Header -->
+<div class="flex flex-col gap-2 mb-4">
+<span class="font-label text-label-md uppercase text-primary tracking-widest">Scan Report ID: RBA-8842-V</span>
+<h1 class="font-headline text-display-sm tracking-tight text-on-surface">Retail Banking Mobile App</h1>
+<p class="text-on-surface-variant text-body-md max-w-2xl mt-2">Automated deep-scan completed. Dependency mapping and configuration auditing indicate critical vulnerabilities requiring immediate remediation to maintain compliance.</p>
+</div>
+<!-- Bento Summary Grid -->
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+<div class="bg-surface-container-high/60 backdrop-blur-[20px] rounded-lg p-5 flex flex-col justify-between relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-error-container/20 to-transparent pointer-events-none"></div>
+<span class="text-on-surface-variant text-label-md uppercase z-10">Critical Issues</span>
+<div class="flex items-end gap-3 mt-4 z-10">
+<span class="font-headline text-display-sm text-error">12</span>
+<span class="text-error mb-1.5 flex items-center text-sm"><span class="material-symbols-outlined text-sm mr-1">trending_up</span> +3</span>
+</div>
+</div>
+<div class="bg-surface-container-highest rounded-lg p-5 flex flex-col justify-between">
+<span class="text-on-surface-variant text-label-md uppercase">High Severity</span>
+<div class="flex items-end gap-3 mt-4">
+<span class="font-headline text-display-sm text-secondary-fixed-dim">28</span>
+</div>
+</div>
+<div class="bg-surface-container-highest rounded-lg p-5 flex flex-col justify-between">
+<span class="text-on-surface-variant text-label-md uppercase">Medium Severity</span>
+<div class="flex items-end gap-3 mt-4">
+<span class="font-headline text-display-sm text-on-surface">45</span>
+</div>
+</div>
+<div class="bg-surface-container-highest rounded-lg p-5 flex flex-col justify-between">
+<span class="text-on-surface-variant text-label-md uppercase">Dependencies Scanned</span>
+<div class="flex items-end gap-3 mt-4">
+<span class="font-headline text-display-sm text-primary">1,402</span>
+</div>
+</div>
+</div>
+<!-- Main Data Section -->
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+<!-- Left Col: Dependencies (Span 2) -->
+<div class="xl:col-span-2 bg-surface-container-lowest rounded-xl p-1 border border-outline-variant/10">
+<div class="bg-surface-container-low rounded-lg h-full flex flex-col">
+<div class="p-6 pb-4 flex justify-between items-center">
+<div>
+<h3 class="font-headline text-headline-md text-on-surface">Detected Dependencies</h3>
+<p class="text-sm text-on-surface-variant mt-1">Vulnerable external libraries identified in the build manifest.</p>
+</div>
+<button class="text-primary hover:bg-surface-bright p-2 rounded-md transition-colors">
+<span class="material-symbols-outlined">filter_list</span>
+</button>
+</div>
+<div class="flex-1 px-6 pb-6">
+<!-- Custom Table Header -->
+<div class="grid grid-cols-12 gap-4 text-label-md uppercase text-on-surface-variant pb-3 mb-2 px-4 border-b border-outline-variant/15">
+<div class="col-span-4">Library / Component</div>
+<div class="col-span-3">CVE ID</div>
+<div class="col-span-2">Severity</div>
+<div class="col-span-3 text-right">Action</div>
+</div>
+<!-- Custom Table Rows -->
+<div class="flex flex-col data-table-row">
+<div class="grid grid-cols-12 gap-4 items-center bg-surface hover:bg-surface-bright transition-colors rounded-lg p-4 cursor-default">
+<div class="col-span-4 flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">code_blocks</span>
+</div>
+<div>
+<div class="font-medium text-on-surface">Log4j Core</div>
+<div class="text-xs text-on-surface-variant">v2.14.1</div>
+</div>
+</div>
+<div class="col-span-3 font-mono text-sm text-primary">CVE-2021-44228</div>
+<div class="col-span-2">
+<span class="inline-flex items-center px-2 py-0.5 rounded-sm bg-error-container text-on-error-container text-xs font-semibold uppercase tracking-wider">
+                                            Critical
+                                        </span>
+</div>
+<div class="col-span-3 flex justify-end">
+<button class="bg-surface-container-highest hover:bg-surface-bright text-primary text-sm font-medium px-4 py-1.5 rounded-md transition-colors flex items-center gap-2">
+                                            View Remediation
+                                            <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<div class="flex flex-col data-table-row">
+<div class="grid grid-cols-12 gap-4 items-center bg-surface hover:bg-surface-bright transition-colors rounded-lg p-4 cursor-default">
+<div class="col-span-4 flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">data_object</span>
+</div>
+<div>
+<div class="font-medium text-on-surface">Spring Framework</div>
+<div class="text-xs text-on-surface-variant">v5.3.15</div>
+</div>
+</div>
+<div class="col-span-3 font-mono text-sm text-secondary-fixed-dim">CVE-2022-22965</div>
+<div class="col-span-2">
+<span class="inline-flex items-center px-2 py-0.5 rounded-sm bg-error-container text-on-error-container text-xs font-semibold uppercase tracking-wider">
+                                            Critical
+                                        </span>
+</div>
+<div class="col-span-3 flex justify-end">
+<button class="bg-surface-container-highest hover:bg-surface-bright text-primary text-sm font-medium px-4 py-1.5 rounded-md transition-colors flex items-center gap-2">
+                                            View Remediation
+                                            <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<div class="flex flex-col data-table-row">
+<div class="grid grid-cols-12 gap-4 items-center bg-surface hover:bg-surface-bright transition-colors rounded-lg p-4 cursor-default">
+<div class="col-span-4 flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">javascript</span>
+</div>
+<div>
+<div class="font-medium text-on-surface">Jackson Databind</div>
+<div class="text-xs text-on-surface-variant">v2.9.10.8</div>
+</div>
+</div>
+<div class="col-span-3 font-mono text-sm text-secondary-fixed-dim">CVE-2020-36518</div>
+<div class="col-span-2">
+<span class="inline-flex items-center px-2 py-0.5 rounded-sm bg-secondary-container text-on-secondary-container text-xs font-semibold uppercase tracking-wider">
+                                            High
+                                        </span>
+</div>
+<div class="col-span-3 flex justify-end">
+<button class="bg-surface-container-highest hover:bg-surface-bright text-primary text-sm font-medium px-4 py-1.5 rounded-md transition-colors flex items-center gap-2">
+                                            View Remediation
+                                            <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<div class="mt-4 flex justify-center">
+<button class="text-sm text-on-surface-variant hover:text-on-surface transition-colors flex items-center gap-1">
+                                    Load 18 more dependencies <span class="material-symbols-outlined text-[16px]">expand_more</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Col: Configuration Issues (Span 1) -->
+<div class="bg-surface-container-lowest rounded-xl p-1 border border-outline-variant/10">
+<div class="bg-surface-container flex flex-col h-full rounded-lg relative overflow-hidden">
+<!-- Subtle ambient glow for focus area -->
+<div class="absolute top-0 right-0 w-64 h-64 bg-on-background/5 blur-[64px] rounded-full pointer-events-none -translate-y-1/2 translate-x-1/4"></div>
+<div class="p-6 border-b border-outline-variant/15 relative z-10">
+<h3 class="font-headline text-headline-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary-fixed-dim">settings_alert</span>
+                                Configuration Issues
+                            </h3>
+<p class="text-sm text-on-surface-variant mt-1">Infrastructure and environment misconfigurations.</p>
+</div>
+<div class="flex-1 p-6 space-y-4 relative z-10">
+<!-- Issue Item -->
+<div class="bg-surface rounded-lg p-4 hover:bg-surface-bright transition-colors group">
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-error text-[18px]">key_off</span>
+<h4 class="font-medium text-on-surface">Hardcoded API Key</h4>
+</div>
+<span class="inline-flex items-center px-2 py-0.5 rounded-sm bg-error-container text-on-error-container text-[10px] font-bold uppercase tracking-widest">
+                                        Critical
+                                    </span>
+</div>
+<p class="text-xs text-on-surface-variant mb-4 leading-relaxed">AWS Secret Access Key found in plain text within <code class="bg-surface-container-highest px-1 rounded text-primary font-mono">config/production.yml</code>.</p>
+<button class="w-full bg-surface-container-highest group-hover:bg-primary-container text-primary text-sm font-medium py-2 rounded-md transition-colors flex justify-center items-center gap-2">
+                                    View Remediation
+                                </button>
+</div>
+<!-- Issue Item -->
+<div class="bg-surface rounded-lg p-4 hover:bg-surface-bright transition-colors group">
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary-fixed-dim text-[18px]">lock_open</span>
+<h4 class="font-medium text-on-surface">Weak TLS Version</h4>
+</div>
+<span class="inline-flex items-center px-2 py-0.5 rounded-sm bg-secondary-container text-on-secondary-container text-[10px] font-bold uppercase tracking-widest">
+                                        High
+                                    </span>
+</div>
+<p class="text-xs text-on-surface-variant mb-4 leading-relaxed">API Gateway endpoint accepts TLSv1.1 connections, which are deprecated and vulnerable.</p>
+<button class="w-full bg-surface-container-highest group-hover:bg-primary-container text-primary text-sm font-medium py-2 rounded-md transition-colors flex justify-center items-center gap-2">
+                                    View Remediation
+                                </button>
+</div>
+<!-- Issue Item -->
+<div class="bg-surface rounded-lg p-4 hover:bg-surface-bright transition-colors group">
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary text-[18px]">public</span>
+<h4 class="font-medium text-on-surface">Open S3 Bucket</h4>
+</div>
+<span class="inline-flex items-center px-2 py-0.5 rounded-sm bg-error-container text-on-error-container text-[10px] font-bold uppercase tracking-widest">
+                                        Critical
+                                    </span>
+</div>
+<p class="text-xs text-on-surface-variant mb-4 leading-relaxed">Asset storage bucket `rba-static-assets-prod` has public READ/WRITE ACLs enabled.</p>
+<button class="w-full bg-surface-container-highest group-hover:bg-primary-container text-primary text-sm font-medium py-2 rounded-md transition-colors flex justify-center items-center gap-2">
+                                    View Remediation
+                                </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

@@ -1,0 +1,44 @@
+# Dependency directories
+node_modules/
+venv/
+env/
+ENV/
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# IDEs
+.vscode/
+.idea/
+
+# Vite/React
+dist/
+dist-ssr/
+*.local
+.vite/
+
+# Design Data (Optional - common to ignore if using as a scaffold)
+# stitch_screens/
+# project_details.json
+# projects.json
+# stitch_tools.json

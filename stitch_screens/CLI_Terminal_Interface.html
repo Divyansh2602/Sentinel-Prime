@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sovereign Sentinel - CLI Terminal Interface</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed": "#6ffbbe",
+                        "outline-variant": "#45464d",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "inverse-on-surface": "#283044",
+                        "on-secondary-fixed": "#0b1c30",
+                        "error": "#ffb4ab",
+                        "surface-tint": "#7bd0ff",
+                        "on-primary": "#00354a",
+                        "outline": "#909097",
+                        "surface-bright": "#31394d",
+                        "on-secondary": "#213145",
+                        "surface-container": "#171f33",
+                        "on-surface": "#dae2fd",
+                        "primary": "#7bd0ff",
+                        "on-tertiary": "#003824",
+                        "surface-container-high": "#222a3d",
+                        "secondary-fixed": "#d3e4fe",
+                        "secondary-container": "#3a4a5f",
+                        "on-secondary-container": "#a9bad3",
+                        "on-error": "#690005",
+                        "tertiary": "#4edea3",
+                        "on-tertiary-fixed-variant": "#005236",
+                        "on-primary-fixed": "#001e2c",
+                        "background": "#0b1326",
+                        "on-surface-variant": "#c6c6cd",
+                        "surface-container-low": "#131b2e",
+                        "error-container": "#93000a",
+                        "surface-container-lowest": "#060e20",
+                        "on-primary-container": "#008abb",
+                        "tertiary-container": "#001c10",
+                        "tertiary-fixed-dim": "#4edea3",
+                        "surface-dim": "#0b1326",
+                        "primary-fixed-dim": "#7bd0ff",
+                        "on-error-container": "#ffdad6",
+                        "inverse-surface": "#dae2fd",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "on-tertiary-fixed": "#002113",
+                        "on-primary-fixed-variant": "#004c69",
+                        "surface": "#0b1326",
+                        "inverse-primary": "#00668a",
+                        "primary-container": "#001a27",
+                        "on-background": "#dae2fd",
+                        "surface-variant": "#2d3449",
+                        "secondary": "#b7c8e1",
+                        "surface-container-highest": "#2d3449",
+                        "primary-fixed": "#c4e7ff",
+                        "on-tertiary-container": "#009365"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"],
+                        "mono": ["JetBrains Mono"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .terminal-text {
+            text-shadow: 0 0 8px rgba(123, 208, 255, 0.3);
+        }
+        .terminal-error {
+            text-shadow: 0 0 8px rgba(255, 180, 171, 0.4);
+        }
+        .terminal-success {
+            text-shadow: 0 0 8px rgba(78, 222, 163, 0.3);
+        }
+        .terminal-warning {
+            text-shadow: 0 0 8px rgba(211, 228, 254, 0.3); /* Using secondary for warning feel */
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body antialiased flex h-screen overflow-hidden">
+<!-- SideNavBar (Semantic Shell) -->
+<nav class="bg-[#060e20] h-screen w-64 border-r border-[#2d3449]/15 flex flex-col p-4 gap-2 hidden md:flex shrink-0">
+<!-- Header -->
+<div class="flex items-center gap-3 mb-6 px-2 pt-2">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center overflow-hidden shrink-0">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">shield</span>
+</div>
+<div>
+<h1 class="font-headline font-black uppercase text-xs tracking-widest text-[#7bd0ff]">The Archive</h1>
+<p class="font-label text-[10px] text-on-surface-variant tracking-wider uppercase opacity-80">Precision Security</p>
+</div>
+</div>
+<!-- Primary CTA -->
+<button class="mb-4 w-full bg-gradient-to-br from-primary to-on-primary-container text-on-primary font-label text-sm font-semibold rounded-md py-2.5 px-4 flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-sm">rocket_launch</span>
+            Start New Scan
+        </button>
+<!-- Navigation Links -->
+<div class="flex-1 flex flex-col gap-1 overflow-y-auto">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-500 hover:bg-[#0b1326] hover:text-slate-100 transition-all scale-98-on-click rounded-md font-label text-sm" href="#">
+<span class="material-symbols-outlined text-lg">shield</span>
+                Security Overview
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-500 hover:bg-[#0b1326] hover:text-slate-100 transition-all scale-98-on-click rounded-md font-label text-sm" href="#">
+<span class="material-symbols-outlined text-lg">bug_report</span>
+                Vulnerabilities
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-500 hover:bg-[#0b1326] hover:text-slate-100 transition-all scale-98-on-click rounded-md font-label text-sm" href="#">
+<span class="material-symbols-outlined text-lg">account_tree</span>
+                Dependency Tree
+            </a>
+<!-- Active State Context: CI/CD Pipeline relates to scanning -->
+<a class="flex items-center gap-3 px-3 py-2 bg-[#2d3449] text-[#7bd0ff] font-semibold rounded-md transition-all scale-98-on-click font-label text-sm" href="#">
+<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">rocket_launch</span>
+                CI/CD Pipeline
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-500 hover:bg-[#0b1326] hover:text-slate-100 transition-all scale-98-on-click rounded-md font-label text-sm" href="#">
+<span class="material-symbols-outlined text-lg">history_edu</span>
+                Audit Logs
+            </a>
+</div>
+<!-- Footer Links -->
+<div class="mt-auto pt-4 border-t border-outline-variant/15 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-500 hover:bg-[#0b1326] hover:text-slate-100 transition-all rounded-md font-label text-sm" href="#">
+<span class="material-symbols-outlined text-lg">settings_input_component</span>
+                System Health
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-500 hover:bg-[#0b1326] hover:text-slate-100 transition-all rounded-md font-label text-sm" href="#">
+<span class="material-symbols-outlined text-lg">logout</span>
+                Logout
+            </a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col h-screen overflow-hidden bg-background relative">
+<!-- Ambient background texture/glow -->
+<div class="absolute inset-0 pointer-events-none overflow-hidden z-0">
+<div class="absolute top-1/4 left-1/4 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[120px] opacity-30 mix-blend-screen"></div>
+<div class="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-error/5 rounded-full blur-[100px] opacity-20 mix-blend-screen"></div>
+</div>
+<!-- TopNavBar (Semantic Shell) -->
+<header class="bg-[#0b1326] flex justify-between items-center px-8 h-16 w-full shrink-0 relative z-10 border-b border-[#2d3449]/15 tonal-layering-via-bg-shifts flat-no-shadows">
+<div class="flex items-center gap-8 h-full">
+<div class="text-xl font-bold text-[#7bd0ff] tracking-tighter font-headline flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">terminal</span>
+                    Sovereign Sentinel
+                </div>
+<nav class="hidden md:flex h-full items-center gap-6">
+<a class="text-slate-400 hover:text-slate-200 transition-colors font-label text-sm hover:bg-[#2d3449]/30 px-3 py-2 rounded-md" href="#">Dashboard</a>
+<a class="text-slate-400 hover:text-slate-200 transition-colors font-label text-sm hover:bg-[#2d3449]/30 px-3 py-2 rounded-md" href="#">Analytics</a>
+<a class="text-slate-400 hover:text-slate-200 transition-colors font-label text-sm hover:bg-[#2d3449]/30 px-3 py-2 rounded-md" href="#">Reports</a>
+<a class="text-slate-400 hover:text-slate-200 transition-colors font-label text-sm hover:bg-[#2d3449]/30 px-3 py-2 rounded-md" href="#">Settings</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-slate-400 hover:text-primary transition-colors p-2 rounded-full hover:bg-surface-container-high">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-slate-400 hover:text-primary transition-colors p-2 rounded-full hover:bg-surface-container-high">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-surface-container-high overflow-hidden border border-outline-variant/30 ml-2">
+<img alt="Security Analyst Profile" class="w-full h-full object-cover" data-alt="close up professional portrait of a woman in dark business attire against a neutral grey background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAHZuOvLGIVCj17Txpcycj1GQWQ_J7VGVbazsJt0nIACAe3dsjXI0MJ3RzOmA885LS4G4o2QIU70mqCiBOOFvxEG9FRhpY9MNPkQQ06dV3G_a2PvXK8v7KklkA9xBdujm2szL5jwvLZJmuVtMhvdMrVtL1sHBFyZxNcVUAaZUgemsynKv54ViPzdIdbdugtQghdW0QVvMGtKobqhNAHGfHC4rH2l-RKP-1c8bK6jUddfhmWGFGUr5oA-b45Rju8535qwToTd_08_Y"/>
+</div>
+</div>
+</header>
+<!-- Terminal Canvas -->
+<div class="flex-1 p-6 md:p-8 overflow-y-auto relative z-10 flex flex-col gap-6">
+<!-- Page Header -->
+<div class="flex justify-between items-end">
+<div>
+<h2 class="font-headline text-display-sm tracking-tight text-on-surface">Sentinel Prime</h2>
+<p class="font-label text-sm text-on-surface-variant uppercase tracking-wider mt-1">Live Pipeline Execution</p>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-low px-3 py-1.5 rounded-md border border-outline-variant/15">
+<span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span>
+<span class="font-mono text-xs text-on-surface-variant">SCAN_IN_PROGRESS</span>
+</div>
+</div>
+<!-- Terminal Window -->
+<div class="bg-surface-container-lowest rounded-lg border border-surface-container-highest shadow-[0_8px_32px_-4px_rgba(218,226,253,0.06)] flex flex-col flex-1 min-h-[500px] overflow-hidden backdrop-blur-xl bg-opacity-95">
+<!-- Terminal Header Bar -->
+<div class="bg-surface-container h-10 border-b border-surface-container-highest flex items-center px-4 gap-2 shrink-0">
+<div class="flex gap-1.5">
+<div class="w-3 h-3 rounded-full bg-outline-variant/50"></div>
+<div class="w-3 h-3 rounded-full bg-outline-variant/50"></div>
+<div class="w-3 h-3 rounded-full bg-outline-variant/50"></div>
+</div>
+<div class="mx-auto font-mono text-xs text-on-surface-variant/70 tracking-wider">root@sovereign-sentinel:~</div>
+</div>
+<!-- Terminal Body (Logs) -->
+<div class="p-6 font-mono text-sm leading-relaxed overflow-y-auto flex-1">
+<div class="text-primary terminal-text mb-4">
+<pre> ____             __  _                 _ 
+/ ___|  ___ _ __ | |_(_)_ __   ___  ___| |
+\___ \ / _ \ '_ \| __| | '_ \ / _ \/ __| |
+ ___) |  __/ | | | |_| | | | |  __/\__ \ |
+|____/ \___|_| |_|\__|_|_| |_|\___||___/_|
+    PRIME EXECUTION ENVIRONMENT v4.2.1
+                        </pre>
+</div>
+<div class="space-y-1 mt-6">
+<div class="flex gap-4">
+<span class="text-outline-variant shrink-0">[14:02:01.045]</span>
+<span class="text-on-surface">Initializing Sentinel Prime scanner...</span>
+</div>
+<div class="flex gap-4">
+<span class="text-outline-variant shrink-0">[14:02:01.120]</span>
+<span class="text-on-surface">Loading rule definitions from remote source... <span class="text-tertiary terminal-success">DONE</span></span>
+</div>
+<div class="flex gap-4">
+<span class="text-outline-variant shrink-0">[14:02:02.501]</span>
+<span class="text-on-surface">Target acquired: <span class="text-primary">/opt/banking-core/src</span></span>
+</div>
+<div class="flex gap-4 mt-2">
+<span class="text-outline-variant shrink-0">[14:02:02.880]</span>
+<span class="text-on-surface">&gt; Analyzing package.json dependencies...</span>
+</div>
+<div class="flex gap-4">
+<span class="text-outline-variant shrink-0">[14:02:03.105]</span>
+<span class="text-on-surface">  - Checking CVE database...</span>
+</div>
+<div class="flex gap-4">
+<span class="text-outline-variant shrink-0">[14:02:04.442]</span>
+<span class="text-on-surface">  - Found 124 dependencies. Validating signatures... <span class="text-tertiary terminal-success">OK</span></span>
+</div>
+<div class="flex gap-4">
+<span class="text-outline-variant shrink-0">[14:02:05.011]</span>
+<span class="text-error terminal-error font-bold">  [!] CRITICAL VULNERABILITY DETECTED</span>
+</div>
+<div class="flex gap-4 ml-8">
+<span class="text-outline-variant shrink-0"></span>
+<span class="text-on-surface-variant">CVE-2023-4528: Remote Code Execution in 'auth-utils' v1.2.4</span>
+</div>
+<div class="flex gap-4 mt-2">
+<span class="text-outline-variant shrink-0">[14:02:06.120]</span>
+<span class="text-on-surface">&gt; Scanning for hardcoded secrets (Entropy Analysis)...</span>
+</div>
+<div class="flex gap-4">
+<span class="text-outline-variant shrink-0">[14:02:07.880]</span>
+<span class="text-secondary terminal-warning">  [~] WARNING: High entropy string found in config.ts:42</span>
+</div>
+<div class="flex gap-4 ml-8">
+<span class="text-outline-variant shrink-0"></span>
+<span class="text-on-surface-variant">Possible API Key. Context: `const AWS_KEY = "AKIA..."`</span>
+</div>
+<div class="flex gap-4 mt-2">
+<span class="text-outline-variant shrink-0">[14:02:08.400]</span>
+<span class="text-on-surface">&gt; Verifying container image configuration...</span>
+</div>
+<div class="flex gap-4">
+<span class="text-outline-variant shrink-0">[14:02:09.112]</span>
+<span class="text-on-surface">  - Dockerfile analysis... <span class="text-tertiary terminal-success">OK</span></span>
+</div>
+<div class="flex gap-4 mt-4 items-center">
+<span class="text-outline-variant shrink-0">[14:02:09.550]</span>
+<span class="text-primary animate-pulse">_</span>
+</div>
+</div>
+</div>
+<!-- Final Summary (Bottom Docked) -->
+<div class="bg-surface-container-high/60 backdrop-blur-md border-t border-surface-container-highest p-4 shrink-0 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">radar</span>
+<div>
+<p class="font-label text-xs text-on-surface-variant uppercase tracking-wide">Current Phase</p>
+<p class="font-body text-sm text-on-surface font-medium">Deep Code Inspection</p>
+</div>
+</div>
+<div class="flex gap-3">
+<!-- Critical Chip -->
+<div class="bg-error-container border border-error/20 rounded-md px-4 py-2 flex flex-col items-end min-w-[100px]">
+<span class="font-label text-[10px] text-on-error-container uppercase tracking-wider">Critical</span>
+<span class="font-mono text-xl font-bold text-error">1</span>
+</div>
+<!-- High Chip -->
+<div class="bg-secondary-container border border-secondary/20 rounded-md px-4 py-2 flex flex-col items-end min-w-[100px]">
+<span class="font-label text-[10px] text-on-secondary-container uppercase tracking-wider">High</span>
+<span class="font-mono text-xl font-bold text-secondary">0</span>
+</div>
+<!-- Medium Chip -->
+<div class="bg-surface-container border border-outline-variant/30 rounded-md px-4 py-2 flex flex-col items-end min-w-[100px]">
+<span class="font-label text-[10px] text-on-surface-variant uppercase tracking-wider">Medium</span>
+<span class="font-mono text-xl font-bold text-on-surface">3</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

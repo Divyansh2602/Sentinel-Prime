@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Pull Request Integration - Sovereign Sentinel</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed": "#6ffbbe",
+                        "outline-variant": "#45464d",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "inverse-on-surface": "#283044",
+                        "on-secondary-fixed": "#0b1c30",
+                        "error": "#ffb4ab",
+                        "surface-tint": "#7bd0ff",
+                        "on-primary": "#00354a",
+                        "outline": "#909097",
+                        "surface-bright": "#31394d",
+                        "on-secondary": "#213145",
+                        "surface-container": "#171f33",
+                        "on-surface": "#dae2fd",
+                        "primary": "#7bd0ff",
+                        "on-tertiary": "#003824",
+                        "surface-container-high": "#222a3d",
+                        "secondary-fixed": "#d3e4fe",
+                        "secondary-container": "#3a4a5f",
+                        "on-secondary-container": "#a9bad3",
+                        "on-error": "#690005",
+                        "tertiary": "#4edea3",
+                        "on-tertiary-fixed-variant": "#005236",
+                        "on-primary-fixed": "#001e2c",
+                        "background": "#0b1326",
+                        "on-surface-variant": "#c6c6cd",
+                        "surface-container-low": "#131b2e",
+                        "error-container": "#93000a",
+                        "surface-container-lowest": "#060e20",
+                        "on-primary-container": "#008abb",
+                        "tertiary-container": "#001c10",
+                        "tertiary-fixed-dim": "#4edea3",
+                        "surface-dim": "#0b1326",
+                        "primary-fixed-dim": "#7bd0ff",
+                        "on-error-container": "#ffdad6",
+                        "inverse-surface": "#dae2fd",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "on-tertiary-fixed": "#002113",
+                        "on-primary-fixed-variant": "#004c69",
+                        "surface": "#0b1326",
+                        "inverse-primary": "#00668a",
+                        "primary-container": "#001a27",
+                        "on-background": "#dae2fd",
+                        "surface-variant": "#2d3449",
+                        "secondary": "#b7c8e1",
+                        "surface-container-highest": "#2d3449",
+                        "primary-fixed": "#c4e7ff",
+                        "on-tertiary-container": "#009365"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "label": ["Inter", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, h4, h5, h6, .font-headline { font-family: 'Manrope', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col md:flex-row antialiased">
+<!-- JSON: SideNavBar -->
+<nav class="bg-[#060e20] text-[#7bd0ff] font-['Inter'] text-sm h-screen w-64 border-r border-[#2d3449]/15 surface-container-lowest-recession flat-no-shadows flex flex-col p-4 gap-2 hidden md:flex shrink-0">
+<div class="mb-8 px-2 mt-4">
+<h1 class="font-['Manrope'] font-black uppercase text-xs tracking-widest text-[#7bd0ff]">The Archive</h1>
+<p class="text-on-surface-variant text-xs mt-1">Precision Security</p>
+</div>
+<div class="flex-1 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-500 hover:bg-[#0b1326] hover:text-slate-100 transition-all scale-98-on-click" href="#">
+<span class="material-symbols-outlined" data-icon="shield">shield</span>
+<span>Security Overview</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-500 hover:bg-[#0b1326] hover:text-slate-100 transition-all scale-98-on-click" href="#">
+<span class="material-symbols-outlined" data-icon="bug_report">bug_report</span>
+<span>Vulnerabilities</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 bg-[#2d3449] text-[#7bd0ff] font-semibold rounded-md scale-98-on-click" href="#">
+<span class="material-symbols-outlined" data-icon="account_tree">account_tree</span>
+<span>Dependency Tree</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-500 hover:bg-[#0b1326] hover:text-slate-100 transition-all scale-98-on-click" href="#">
+<span class="material-symbols-outlined" data-icon="rocket_launch">rocket_launch</span>
+<span>CI/CD Pipeline</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-500 hover:bg-[#0b1326] hover:text-slate-100 transition-all scale-98-on-click" href="#">
+<span class="material-symbols-outlined" data-icon="history_edu">history_edu</span>
+<span>Audit Logs</span>
+</a>
+</div>
+<div class="mt-auto flex flex-col gap-1 mb-4">
+<button class="bg-gradient-to-br from-primary to-on-primary-container text-on-primary font-medium py-2 px-4 rounded-md mb-4 hover:opacity-90 transition-opacity">Start New Scan</button>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-500 hover:bg-[#0b1326] hover:text-slate-100 transition-all scale-98-on-click" href="#">
+<span class="material-symbols-outlined" data-icon="settings_input_component">settings_input_component</span>
+<span>System Health</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-500 hover:bg-[#0b1326] hover:text-slate-100 transition-all scale-98-on-click" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span>Logout</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 flex flex-col min-w-0">
+<!-- JSON: TopNavBar (Visible on Mobile, or as a secondary header if needed. We'll use it as the main header area for the canvas) -->
+<header class="bg-[#0b1326] text-[#7bd0ff] font-['Manrope'] tracking-tight w-full border-b border-[#2d3449]/15 tonal-layering-via-bg-shifts flat-no-shadows transition-all duration-200 ease-in-out flex justify-between items-center px-8 h-16 w-full shrink-0">
+<div class="flex items-center gap-6">
+<!-- Mobile Menu Button (mock) -->
+<button class="md:hidden text-on-surface-variant p-2 -ml-2 hover:bg-[#2d3449]/30 rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<div class="text-xl font-bold text-[#7bd0ff] tracking-tighter hidden md:block">Sovereign Sentinel</div>
+<nav class="hidden md:flex gap-6 items-center h-full ml-8">
+<a class="text-slate-400 hover:text-slate-200 transition-colors h-full flex items-center" href="#">Dashboard</a>
+<a class="text-slate-400 hover:text-slate-200 transition-colors h-full flex items-center" href="#">Analytics</a>
+<a class="text-slate-400 hover:text-slate-200 transition-colors h-full flex items-center" href="#">Reports</a>
+<a class="text-slate-400 hover:text-slate-200 transition-colors h-full flex items-center" href="#">Settings</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+<input class="bg-surface-container-highest border-none rounded-md pl-9 pr-4 py-1.5 text-sm focus:ring-2 focus:ring-primary text-on-surface placeholder:text-on-surface-variant w-48" placeholder="Search..." type="text"/>
+</div>
+<button class="text-on-surface-variant hover:bg-[#2d3449]/30 p-2 rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:bg-[#2d3449]/30 p-2 rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-surface-container-highest overflow-hidden ml-2 border border-outline-variant/30">
+<img alt="Security Analyst Profile" class="w-full h-full object-cover" data-alt="professional portrait of a security analyst in a modern dark office setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6JhfC6RiVaSI1R9Bvt-PvCsYiuf1reZa0ze23toAYCf7q4BP67rYZwvykEX8UZ78WhyiLi4yLdospQjaBH-KFj8OaKOYYLkN9zO0VYv-Urqiq_-_fUCFT9ZW-v0-S5pHMU0sPn9mw2L8UmKAZHpPsr9mOtwNcLVQ3lUCjIaKZdFt89gOhr8V2nOhjEQ2c_hVlASIHFq-sy2Eu9cdQMw6SrmpfTFxNCmnaJNy_IHd0sgKzPojnBleFHyndIommXqXQmYCFV5B9TSs"/>
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<div class="flex-1 overflow-y-auto p-4 sm:p-8">
+<div class="max-w-5xl mx-auto space-y-8">
+<!-- Page Header -->
+<div>
+<h2 class="font-headline text-3xl font-bold tracking-tight text-on-background">Integration Hub</h2>
+<p class="text-on-surface-variant mt-2">Active Pull Request Monitoring</p>
+</div>
+<!-- GitHub PR Mockup Container -->
+<div class="bg-surface-container-low rounded-xl border border-outline-variant/15 overflow-hidden">
+<!-- GitHub PR Header Area Mockup -->
+<div class="bg-surface p-6 border-b border-outline-variant/15">
+<div class="flex items-start justify-between gap-4 mb-4">
+<div>
+<h3 class="font-headline text-2xl text-on-background font-medium flex items-center gap-3">
+                                    Update payment logic <span class="text-on-surface-variant font-normal">#42</span>
+</h3>
+<div class="flex items-center gap-3 mt-3 text-sm">
+<span class="bg-error-container text-on-error-container px-3 py-1 rounded-full flex items-center gap-1.5 font-medium">
+<span class="material-symbols-outlined text-sm" data-icon="error">error</span> Closed
+                                    </span>
+<span class="text-on-surface-variant">
+<strong class="text-on-surface font-medium">dev-alex</strong> wants to merge 3 commits into <code class="bg-surface-container px-1.5 py-0.5 rounded text-xs">main</code> from <code class="bg-surface-container px-1.5 py-0.5 rounded text-xs">feature/payment-update</code>
+</span>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="bg-surface-container-highest hover:bg-surface-bright text-on-surface px-4 py-2 rounded-md text-sm font-medium transition-colors border border-outline-variant/30">Edit</button>
+</div>
+</div>
+</div>
+<!-- PR Timeline -->
+<div class="p-6 bg-surface-container-lowest">
+<div class="relative pl-8 space-y-8 before:absolute before:inset-0 before:ml-4 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-outline-variant/20">
+<!-- Initial Commit -->
+<div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+<div class="flex items-center justify-center w-8 h-8 rounded-full border-2 border-surface-container-lowest bg-surface-container-highest text-on-surface-variant absolute -left-12 top-0 shadow">
+<span class="material-symbols-outlined text-sm" data-icon="commit">commit</span>
+</div>
+<div class="bg-surface border border-outline-variant/15 p-3 rounded-lg shadow-sm w-full md:w-auto">
+<p class="text-sm text-on-surface"><strong class="font-medium">dev-alex</strong> pushed a commit: <code class="text-xs text-primary">a1b2c3d</code> refactor payment gateway integration</p>
+</div>
+</div>
+<!-- Sentinel Bot Comment -->
+<div class="relative group">
+<div class="flex items-center justify-center w-8 h-8 rounded-full border-2 border-surface-container-lowest bg-[#0b1326] text-primary absolute -left-12 top-0 shadow overflow-hidden">
+<span class="material-symbols-outlined text-sm" data-icon="robot_2">robot_2</span>
+</div>
+<div class="bg-surface-container rounded-xl border border-outline-variant/15 overflow-hidden shadow-[0_4px_32px_-4px_rgba(218,226,253,0.06)] relative before:absolute before:top-0 before:left-0 before:w-1 before:h-full before:bg-gradient-to-b before:from-error before:to-error-container">
+<div class="px-5 py-3 bg-surface-container-high border-b border-outline-variant/15 flex justify-between items-center">
+<div class="flex items-center gap-2">
+<strong class="text-on-surface text-sm">Sentinel Bot</strong>
+<span class="text-on-surface-variant text-xs bg-surface-container px-2 py-0.5 rounded-full border border-outline-variant/20">Bot</span>
+<span class="text-on-surface-variant text-xs">commented just now</span>
+</div>
+</div>
+<div class="p-5 space-y-4">
+<div class="flex items-center gap-3 border-b border-outline-variant/15 pb-4">
+<span class="material-symbols-outlined text-error text-3xl" data-icon="gpp_bad">gpp_bad</span>
+<div>
+<h4 class="font-headline text-lg font-bold text-on-background">Security Scan Failed</h4>
+<p class="text-sm text-on-surface-variant">Sovereign Sentinel detected <strong class="text-error">2 new vulnerabilities</strong> in this pull request.</p>
+</div>
+</div>
+<div class="space-y-3">
+<!-- Vulnerability 1 -->
+<div class="bg-surface p-4 rounded-lg border border-outline-variant/15 hover:bg-surface-bright transition-colors group cursor-pointer relative overflow-hidden">
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-2">
+<span class="bg-error-container text-on-error-container text-xs px-2 py-0.5 rounded font-medium">Critical</span>
+<span class="text-on-surface font-medium text-sm">SQL Injection</span>
+</div>
+<span class="text-on-surface-variant text-xs font-mono">CWE-89</span>
+</div>
+<p class="text-sm text-on-surface-variant mb-3">Improper neutralization of special elements used in an SQL command in <code class="bg-surface-container px-1 py-0.5 rounded text-xs">payment_processor.js:142</code></p>
+<div class="text-xs text-primary flex items-center gap-1 group-hover:underline">
+                                                    View Details <span class="material-symbols-outlined text-[14px]" data-icon="arrow_forward">arrow_forward</span>
+</div>
+</div>
+<!-- Vulnerability 2 -->
+<div class="bg-surface p-4 rounded-lg border border-outline-variant/15 hover:bg-surface-bright transition-colors group cursor-pointer">
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-2">
+<span class="bg-secondary-container text-on-secondary-container text-xs px-2 py-0.5 rounded font-medium">Warning</span>
+<span class="text-on-surface font-medium text-sm">Hardcoded Credentials</span>
+</div>
+<span class="text-on-surface-variant text-xs font-mono">CWE-798</span>
+</div>
+<p class="text-sm text-on-surface-variant mb-3">Use of hard-coded credentials in API configuration <code class="bg-surface-container px-1 py-0.5 rounded text-xs">config/api_keys.yml:12</code></p>
+<div class="text-xs text-primary flex items-center gap-1 group-hover:underline">
+                                                    View Details <span class="material-symbols-outlined text-[14px]" data-icon="arrow_forward">arrow_forward</span>
+</div>
+</div>
+</div>
+<div class="pt-4 flex justify-end">
+<button class="bg-gradient-to-br from-primary to-on-primary-container text-on-primary font-medium py-2 px-5 rounded-md text-sm hover:opacity-90 transition-opacity shadow-[0_4px_32px_-4px_rgba(123,208,255,0.2)]">
+                                                View Full Report in Sentinel
+                                            </button>
+</div>
+</div>
+</div>
+</div>
+<!-- PR Checks Section -->
+<div class="relative group">
+<div class="flex items-center justify-center w-8 h-8 rounded-full border-2 border-surface-container-lowest bg-error-container text-on-error-container absolute -left-12 top-0 shadow">
+<span class="material-symbols-outlined text-sm" data-icon="close">close</span>
+</div>
+<div class="bg-surface border border-outline-variant/15 rounded-xl shadow-sm overflow-hidden">
+<div class="p-4 border-b border-outline-variant/15 flex items-center gap-3">
+<span class="material-symbols-outlined text-error" data-icon="cancel">cancel</span>
+<div>
+<h4 class="text-on-surface font-medium text-sm">All checks have failed</h4>
+<p class="text-on-surface-variant text-xs">1 failing check</p>
+</div>
+</div>
+<div class="p-0">
+<div class="flex items-center justify-between p-4 bg-surface-container-lowest border-l-4 border-error">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-error text-sm" data-icon="close">close</span>
+<span class="text-on-surface font-medium text-sm">Sentinel Security Scan</span>
+<span class="text-on-surface-variant text-xs">— Failed: 2 vulnerabilities found</span>
+</div>
+<a class="text-primary text-xs hover:underline" href="#">Details</a>
+</div>
+</div>
+<div class="p-4 bg-surface-container-low border-t border-outline-variant/15">
+<button class="bg-surface-container-highest text-on-surface-variant px-4 py-2 rounded-md text-sm font-medium w-full cursor-not-allowed opacity-50 flex justify-center items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="merge">merge</span> Merge pull request
+                                        </button>
+<p class="text-center text-xs text-on-surface-variant mt-2">Merging is blocked by failing checks.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

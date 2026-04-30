@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Synthetic Repo Explorer - Sovereign Sentinel</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Manrope:wght@400;500;600;700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-fixed": "#6ffbbe",
+                      "outline-variant": "#45464d",
+                      "on-secondary-fixed-variant": "#38485d",
+                      "inverse-on-surface": "#283044",
+                      "on-secondary-fixed": "#0b1c30",
+                      "error": "#ffb4ab",
+                      "surface-tint": "#7bd0ff",
+                      "on-primary": "#00354a",
+                      "outline": "#909097",
+                      "surface-bright": "#31394d",
+                      "on-secondary": "#213145",
+                      "surface-container": "#171f33",
+                      "on-surface": "#dae2fd",
+                      "primary": "#7bd0ff",
+                      "on-tertiary": "#003824",
+                      "surface-container-high": "#222a3d",
+                      "secondary-fixed": "#d3e4fe",
+                      "secondary-container": "#3a4a5f",
+                      "on-secondary-container": "#a9bad3",
+                      "on-error": "#690005",
+                      "tertiary": "#4edea3",
+                      "on-tertiary-fixed-variant": "#005236",
+                      "on-primary-fixed": "#001e2c",
+                      "background": "#0b1326",
+                      "on-surface-variant": "#c6c6cd",
+                      "surface-container-low": "#131b2e",
+                      "error-container": "#93000a",
+                      "surface-container-lowest": "#060e20",
+                      "on-primary-container": "#008abb",
+                      "tertiary-container": "#001c10",
+                      "tertiary-fixed-dim": "#4edea3",
+                      "surface-dim": "#0b1326",
+                      "primary-fixed-dim": "#7bd0ff",
+                      "on-error-container": "#ffdad6",
+                      "inverse-surface": "#dae2fd",
+                      "secondary-fixed-dim": "#b7c8e1",
+                      "on-tertiary-fixed": "#002113",
+                      "on-primary-fixed-variant": "#004c69",
+                      "surface": "#0b1326",
+                      "inverse-primary": "#00668a",
+                      "primary-container": "#001a27",
+                      "on-background": "#dae2fd",
+                      "surface-variant": "#2d3449",
+                      "secondary": "#b7c8e1",
+                      "surface-container-highest": "#2d3449",
+                      "primary-fixed": "#c4e7ff",
+                      "on-tertiary-container": "#009365"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {},
+              "fontFamily": {
+                      "headline": [
+                              "Manrope"
+                      ],
+                      "body": [
+                              "Inter"
+                      ],
+                      "label": [
+                              "Inter"
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+      </style>
+</head>
+<body class="bg-background text-on-background font-body h-screen w-screen overflow-hidden flex flex-col">
+<!-- Top Navigation -->
+<header class="bg-[#0b1326] w-full border-b border-[#2d3449]/15 flex justify-between items-center px-8 h-16 w-full shrink-0 transition-all duration-200 ease-in-out tonal-layering-via-bg-shifts flat-no-shadows font-['Manrope'] tracking-tight">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#7bd0ff]" style="font-variation-settings: 'FILL' 1;">security</span>
+<span class="text-xl font-bold text-[#7bd0ff] tracking-tighter">Sovereign Sentinel</span>
+</div>
+<nav class="hidden md:flex items-center gap-6 h-full">
+<a class="text-slate-400 hover:text-slate-200 transition-colors h-full flex items-center hover:bg-[#2d3449]/30 px-3" href="#">Dashboard</a>
+<a class="text-slate-400 hover:text-slate-200 transition-colors h-full flex items-center hover:bg-[#2d3449]/30 px-3" href="#">Analytics</a>
+<a class="text-[#7bd0ff] border-b-2 border-[#7bd0ff] pb-1 h-full flex items-center mt-1 px-3" href="#">Reports</a>
+<a class="text-slate-400 hover:text-slate-200 transition-colors h-full flex items-center hover:bg-[#2d3449]/30 px-3" href="#">Settings</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-on-surface transition-colors p-2 rounded-full hover:bg-surface-container-high">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-on-surface transition-colors p-2 rounded-full hover:bg-surface-container-high">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container-high border border-outline-variant/30 flex-shrink-0">
+<img alt="Security Analyst Profile" class="w-full h-full object-cover" data-alt="professional headshot of a man with short dark hair wearing a navy blue collared shirt against a muted grey background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgir7AhLCjfP4kp-QyU0AC5K7GsWGLmmPfguwGyxLbpgKhJixdccIG94y-Jt4rf_Hj2099bfNjixcjBMLkkW3o10JP5fxEu4KxpdMd4tw5SwkIwpl362AD88y5Ue3p2JqzqjQFZ_Ux5IqDKwFlpTMRDY_Ns8QuM2pM0RgGDoium4hxv8jzo11QgpU7RGTdQsaPblcZv4M-qrOcS5XnYOlqOmCZnInx2niLMcN0TtedGZxDb5umqJqeADhpMCK5fq7NPoXYL9ZjD3w"/>
+</div>
+</div>
+</header>
+<!-- Main Workspace -->
+<div class="flex flex-1 overflow-hidden h-full">
+<!-- Side Navigation (Secondary) -->
+<aside class="bg-[#060e20] h-full w-64 border-r border-[#2d3449]/15 flex flex-col p-4 gap-2 shrink-0 transition-all font-['Inter'] text-sm surface-container-lowest-recession flat-no-shadows">
+<div class="mb-6 px-2">
+<h2 class="font-['Manrope'] font-black uppercase text-xs tracking-widest text-[#7bd0ff] mb-1">The Archive</h2>
+<p class="text-on-surface-variant text-xs">Precision Security</p>
+</div>
+<button class="w-full mb-4 bg-gradient-to-br from-primary to-on-primary-container text-on-primary font-semibold py-2 px-4 rounded-md flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-sm">add</span>
+                Start New Scan
+            </button>
+<nav class="flex-1 flex flex-col gap-1 overflow-y-auto pr-2">
+<a class="text-slate-500 hover:bg-[#0b1326] flex items-center gap-3 px-3 py-2 rounded-md hover:text-slate-100 transition-all scale-98-on-click" href="#">
+<span class="material-symbols-outlined text-[20px]">shield</span>
+                    Security Overview
+                </a>
+<a class="bg-[#2d3449] text-[#7bd0ff] font-semibold rounded-md flex items-center gap-3 px-3 py-2 scale-98-on-click" href="#">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">bug_report</span>
+                    Vulnerabilities
+                </a>
+<a class="text-slate-500 hover:bg-[#0b1326] flex items-center gap-3 px-3 py-2 rounded-md hover:text-slate-100 transition-all scale-98-on-click" href="#">
+<span class="material-symbols-outlined text-[20px]">account_tree</span>
+                    Dependency Tree
+                </a>
+<a class="text-slate-500 hover:bg-[#0b1326] flex items-center gap-3 px-3 py-2 rounded-md hover:text-slate-100 transition-all scale-98-on-click" href="#">
+<span class="material-symbols-outlined text-[20px]">rocket_launch</span>
+                    CI/CD Pipeline
+                </a>
+<a class="text-slate-500 hover:bg-[#0b1326] flex items-center gap-3 px-3 py-2 rounded-md hover:text-slate-100 transition-all scale-98-on-click" href="#">
+<span class="material-symbols-outlined text-[20px]">history_edu</span>
+                    Audit Logs
+                </a>
+</nav>
+<div class="mt-auto pt-4 border-t border-outline-variant/15 flex flex-col gap-1">
+<a class="text-slate-500 hover:bg-[#0b1326] flex items-center gap-3 px-3 py-2 rounded-md hover:text-slate-100 transition-all scale-98-on-click" href="#">
+<span class="material-symbols-outlined text-[20px]">settings_input_component</span>
+                    System Health
+                </a>
+<a class="text-slate-500 hover:bg-[#0b1326] flex items-center gap-3 px-3 py-2 rounded-md hover:text-slate-100 transition-all scale-98-on-click" href="#">
+<span class="material-symbols-outlined text-[20px]">logout</span>
+                    Logout
+                </a>
+</div>
+</aside>
+<!-- IDE Main Area -->
+<main class="flex-1 flex bg-surface overflow-hidden relative">
+<!-- File Tree Sidebar -->
+<div class="w-64 bg-surface-container-low border-r border-outline-variant/15 flex flex-col shrink-0">
+<div class="px-4 py-3 border-b border-outline-variant/15 flex items-center justify-between">
+<span class="font-headline font-semibold text-sm tracking-tight">Repository Explorer</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">more_horiz</span>
+</div>
+<div class="flex-1 overflow-y-auto p-2 font-mono text-xs text-on-surface-variant">
+<ul class="space-y-1">
+<li>
+<div class="flex items-center gap-2 px-2 py-1 hover:bg-surface-container rounded-sm cursor-pointer">
+<span class="material-symbols-outlined text-[16px]">folder_open</span>
+<span>src</span>
+</div>
+</li>
+<li>
+<div class="flex items-center gap-2 px-2 py-1 hover:bg-surface-container rounded-sm cursor-pointer">
+<span class="material-symbols-outlined text-[16px]">folder</span>
+<span>tests</span>
+</div>
+</li>
+<li>
+<div class="flex items-center gap-2 px-2 py-1 hover:bg-surface-container rounded-sm cursor-pointer">
+<span class="material-symbols-outlined text-[16px]">folder_open</span>
+<span>config</span>
+</div>
+<ul class="ml-4 space-y-1 mt-1 border-l border-outline-variant/20 pl-2">
+<li>
+<div class="flex items-center gap-2 px-2 py-1 hover:bg-surface-container rounded-sm cursor-pointer">
+<span class="material-symbols-outlined text-[14px]">description</span>
+<span>default.yaml</span>
+</div>
+</li>
+<li>
+<div class="flex items-center gap-2 px-2 py-1 bg-surface-container-highest text-primary rounded-sm cursor-pointer border-l-2 border-primary -ml-[2px]">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+<span class="font-semibold">production.yaml</span>
+</div>
+</li>
+</ul>
+</li>
+<li>
+<div class="flex items-center gap-2 px-2 py-1 hover:bg-surface-container rounded-sm cursor-pointer">
+<span class="material-symbols-outlined text-[16px]">folder</span>
+<span class="text-outline-variant">node_modules</span>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<!-- Code Editor Area -->
+<div class="flex-1 flex flex-col bg-surface overflow-hidden">
+<!-- Editor Tabs -->
+<div class="flex bg-surface-container-low border-b border-outline-variant/15 overflow-x-auto shrink-0">
+<div class="flex items-center gap-2 px-4 py-2 bg-surface border-t-2 border-primary min-w-[150px]">
+<span class="material-symbols-outlined text-[16px] text-error">warning</span>
+<span class="font-mono text-xs text-on-surface">production.yaml</span>
+<span class="material-symbols-outlined text-[14px] text-on-surface-variant hover:text-on-surface ml-auto cursor-pointer">close</span>
+</div>
+</div>
+<!-- Code View -->
+<div class="flex-1 overflow-auto relative font-mono text-sm p-4 bg-[#0d1117] text-[#c9d1d9] leading-relaxed">
+<div class="flex">
+<div class="w-10 text-right pr-4 text-[#484f58] select-none flex flex-col">
+<span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span>
+</div>
+<div class="flex-1">
+<div><span class="text-[#7ee787]">database:</span></div>
+<div class="ml-4"><span class="text-[#7ee787]">host:</span> <span class="text-[#a5d6ff]">'db.internal.bank.com'</span></div>
+<div class="ml-4"><span class="text-[#7ee787]">port:</span> <span class="text-[#79c0ff]">5432</span></div>
+<div class="ml-4"><span class="text-[#7ee787]">ssl:</span> <span class="text-[#79c0ff]">true</span></div>
+<br/>
+<div><span class="text-[#7ee787]">authentication:</span></div>
+<div class="ml-4"><span class="text-[#7ee787]">jwt_secret:</span> <span class="text-[#a5d6ff]">'complex-auto-generated-secret'</span></div>
+<div class="ml-4 relative group cursor-pointer">
+<!-- Highlighted vulnerable line -->
+<div class="absolute inset-0 bg-error/10 -mx-2 px-2 border-b border-error/50 pointer-events-none"></div>
+<span class="text-[#7ee787] relative z-10">api_key:</span> <span class="text-[#a5d6ff] relative z-10 underline decoration-error decoration-wavy">'sk_live_MOCK_VAL_REDACTED_BY_SENTINEL'</span>
+</div>
+<br/>
+<div><span class="text-[#7ee787]">logging:</span></div>
+<div class="ml-4"><span class="text-[#7ee787]">level:</span> <span class="text-[#a5d6ff]">'info'</span></div>
+<div class="ml-4"><span class="text-[#7ee787]">format:</span> <span class="text-[#a5d6ff]">'json'</span></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Contextual Sidebar (Inspector) -->
+<div class="w-80 bg-surface-container-low border-l border-outline-variant/15 flex flex-col shrink-0 shadow-[-4px_0_32px_rgba(218,226,253,0.06)] z-10">
+<div class="px-6 py-4 border-b border-outline-variant/15 flex items-center gap-2 bg-error-container/20">
+<span class="material-symbols-outlined text-error" style="font-variation-settings: 'FILL' 1;">error</span>
+<span class="font-headline font-bold text-on-error-container tracking-tight">Vulnerability Detected</span>
+</div>
+<div class="p-6 flex-1 overflow-y-auto">
+<div class="mb-6">
+<div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-sm bg-error-container text-on-error-container text-[10px] font-bold uppercase tracking-wider mb-3">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+                            Critical Risk
+                        </div>
+<h3 class="font-headline text-lg font-semibold text-on-surface mb-2">Hardcoded API Key</h3>
+<p class="text-sm text-on-surface-variant leading-relaxed">
+                            A sensitive API key (`sk_live_...`) was found embedded directly in the configuration file. Hardcoding secrets exposes them to anyone with repository access and increases the risk of unauthorized lateral movement.
+                        </p>
+</div>
+<div class="bg-surface-container rounded-lg p-4 mb-6 border border-outline-variant/20">
+<div class="text-xs font-semibold text-on-surface-variant uppercase tracking-wider mb-2">Location</div>
+<div class="font-mono text-sm text-on-surface break-all">
+                            config/production.yaml:8
+                        </div>
+</div>
+<div class="space-y-4 border-t border-outline-variant/15 pt-6">
+<h4 class="font-semibold text-sm text-on-surface">Recommended Action</h4>
+<p class="text-sm text-on-surface-variant mb-4">
+                            Move this secret to an environment variable or a secure vault service (e.g., AWS Secrets Manager, HashiCorp Vault).
+                        </p>
+<div class="bg-surface p-3 rounded border border-outline-variant/15 font-mono text-xs text-on-surface-variant">
+<span class="text-error line-through">- api_key: 'sk_live_abc123...'</span><br/>
+<span class="text-tertiary">+ api_key: ${STRIPE_API_KEY}</span>
+</div>
+<button class="w-full mt-4 bg-surface-container-highest text-primary font-semibold py-2.5 px-4 rounded-md flex items-center justify-center gap-2 hover:bg-surface-bright transition-colors border border-primary/20">
+<span class="material-symbols-outlined text-sm">build</span>
+                            Auto-Fix: Move to .env
+                        </button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

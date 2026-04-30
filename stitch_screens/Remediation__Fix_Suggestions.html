@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Remediation &amp; Fix Suggestions</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-primary": "#00354a",
+                        "outline-variant": "#45464d",
+                        "inverse-on-surface": "#283044",
+                        "tertiary": "#4edea3",
+                        "primary-container": "#001a27",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "on-surface": "#dae2fd",
+                        "secondary-fixed": "#d3e4fe",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "inverse-primary": "#00668a",
+                        "surface": "#0b1326",
+                        "primary": "#7bd0ff",
+                        "secondary-container": "#3a4a5f",
+                        "on-tertiary-fixed-variant": "#005236",
+                        "on-tertiary-container": "#009365",
+                        "on-background": "#dae2fd",
+                        "on-secondary-fixed": "#0b1c30",
+                        "outline": "#909097",
+                        "error": "#ffb4ab",
+                        "on-primary-fixed": "#001e2c",
+                        "on-secondary-container": "#a9bad3",
+                        "tertiary-container": "#001c10",
+                        "on-tertiary": "#003824",
+                        "surface-tint": "#7bd0ff",
+                        "surface-dim": "#0b1326",
+                        "on-surface-variant": "#c6c6cd",
+                        "inverse-surface": "#dae2fd",
+                        "primary-fixed": "#c4e7ff",
+                        "surface-container-low": "#131b2e",
+                        "surface-bright": "#31394d",
+                        "primary-fixed-dim": "#7bd0ff",
+                        "on-error": "#690005",
+                        "surface-container": "#171f33",
+                        "tertiary-fixed-dim": "#4edea3",
+                        "surface-container-highest": "#2d3449",
+                        "surface-container-high": "#222a3d",
+                        "error-container": "#93000a",
+                        "surface-container-lowest": "#060e20",
+                        "background": "#0b1326",
+                        "tertiary-fixed": "#6ffbbe",
+                        "on-tertiary-fixed": "#002113",
+                        "secondary": "#b7c8e1",
+                        "on-primary-fixed-variant": "#004c69",
+                        "on-primary-container": "#008abb",
+                        "surface-variant": "#2d3449",
+                        "on-secondary": "#213145",
+                        "on-error-container": "#ffdad6"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope", "sans-serif"],
+                        "body": ["Inter", "sans-serif"],
+                        "label": ["Inter", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #0b1326; color: #dae2fd; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .material-symbols-outlined.fill { font-variation-settings: 'FILL' 1; }
+    </style>
+</head>
+<body class="font-body antialiased bg-surface text-on-surface h-screen flex overflow-hidden">
+<!-- SideNavBar (from JSON) -->
+<nav class="hidden md:flex flex-col h-full bg-surface-container-lowest w-64 fixed left-0 top-0 z-40 transition-all ease-in-out duration-200">
+<!-- Brand Logo Area -->
+<div class="p-6 flex flex-col gap-1 bg-surface">
+<h1 class="font-headline font-bold text-lg tracking-tight text-primary">Sentinel Prime</h1>
+<p class="font-label text-xs text-on-surface-variant">Fortified Archive v2.4</p>
+</div>
+<!-- Navigation Links -->
+<div class="flex-1 overflow-y-auto py-4 flex flex-col gap-2 px-3">
+<a class="text-on-surface-variant p-3 flex items-center gap-3 hover:bg-surface-container-highest/50 hover:text-on-surface transition-all ease-in-out duration-200 rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label text-sm">Security Metrics</span>
+</a>
+<a class="text-on-surface-variant p-3 flex items-center gap-3 hover:bg-surface-container-highest/50 hover:text-on-surface transition-all ease-in-out duration-200 rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined">security</span>
+<span class="font-label text-sm">Vulnerability Logs</span>
+</a>
+<!-- Active Tab -->
+<a class="bg-surface-container-highest text-primary font-semibold rounded-DEFAULT p-3 flex items-center gap-3 transition-all ease-in-out duration-200" href="#">
+<span class="material-symbols-outlined fill text-primary">build</span>
+<span class="font-label text-sm">Remediation Hub</span>
+</a>
+<a class="text-on-surface-variant p-3 flex items-center gap-3 hover:bg-surface-container-highest/50 hover:text-on-surface transition-all ease-in-out duration-200 rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined">policy</span>
+<span class="font-label text-sm">Policy Engine</span>
+</a>
+</div>
+<!-- CTA & Footer -->
+<div class="p-4 flex flex-col gap-4">
+<button class="w-full py-2.5 px-4 bg-gradient-to-br from-primary to-on-primary-container text-on-primary font-label text-sm font-semibold rounded-DEFAULT shadow-sm flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-[18px]">radar</span>
+                Run Global Scan
+            </button>
+<div class="flex flex-col gap-1 mt-2">
+<a class="text-on-surface-variant p-2 flex items-center gap-3 hover:bg-surface-container-highest/50 hover:text-on-surface transition-all ease-in-out duration-200 rounded-DEFAULT text-sm" href="#">
+<span class="material-symbols-outlined text-[18px]">menu_book</span>
+                    Documentation
+                </a>
+<a class="text-on-surface-variant p-2 flex items-center gap-3 hover:bg-surface-container-highest/50 hover:text-on-surface transition-all ease-in-out duration-200 rounded-DEFAULT text-sm" href="#">
+<span class="material-symbols-outlined text-[18px]">contact_support</span>
+                    Support
+                </a>
+</div>
+<!-- Header Avatar Placeholder logic (JSON subtext mapping) -->
+<div class="mt-4 flex items-center gap-3 pt-4 border-t border-surface-container-highest/30">
+<div class="w-8 h-8 rounded-DEFAULT bg-surface-container-highest flex items-center justify-center overflow-hidden">
+<span class="material-symbols-outlined text-primary">person</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label text-xs text-on-surface">System Administrator</span>
+</div>
+</div>
+</div>
+</nav>
+<!-- Main Content Wrapper -->
+<div class="flex-1 md:ml-64 flex flex-col h-screen overflow-hidden bg-surface relative">
+<!-- TopNavBar (from JSON) -->
+<header class="flex justify-between items-center px-8 py-4 w-full sticky top-0 z-50 bg-surface">
+<div class="flex items-center gap-6">
+<!-- Branding omitted on top nav when side nav is present, focusing on nav links -->
+<nav class="hidden md:flex items-center gap-8 font-headline tracking-tight">
+<a class="text-on-surface-variant font-medium hover:text-on-surface transition-colors duration-200 text-sm" href="#">Dashboard</a>
+<a class="text-on-surface-variant font-medium hover:text-on-surface transition-colors duration-200 text-sm" href="#">Scans</a>
+<!-- Active Top Nav -->
+<a class="text-primary font-semibold border-b-2 border-primary pb-1 text-sm" href="#">Remediation</a>
+<a class="text-on-surface-variant font-medium hover:text-on-surface transition-colors duration-200 text-sm" href="#">Policies</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-on-surface transition-colors duration-200 scale-95 duration-100 flex items-center justify-center w-8 h-8 rounded-full bg-surface-container-lowest">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-on-surface transition-colors duration-200 scale-95 duration-100 flex items-center justify-center w-8 h-8 rounded-full bg-surface-container-lowest">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</header>
+<!-- Page Canvas -->
+<main class="flex-1 overflow-y-auto p-8 relative">
+<div class="max-w-6xl mx-auto flex flex-col gap-8 pb-20">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+<div class="flex flex-col gap-3">
+<div class="flex items-center gap-3">
+<span class="px-2 py-0.5 bg-error-container text-on-error-container font-label text-xs uppercase tracking-wider font-bold rounded-DEFAULT flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">warning</span> Critical
+                            </span>
+<span class="font-label text-sm text-on-surface-variant">ID: VULN-8472</span>
+</div>
+<h2 class="font-headline text-4xl tracking-tight font-extrabold text-on-surface" style="letter-spacing: -0.02em;">Hardcoded API Key in config.json</h2>
+<p class="font-body text-on-surface-variant text-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">folder</span>
+                            Path: <code class="bg-surface-container-low px-1.5 py-0.5 rounded-DEFAULT text-primary font-mono text-xs">/src/config/config.json</code>
+</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="px-4 py-2 bg-surface-container-highest text-on-surface hover:bg-surface-container-high transition-colors font-label text-sm font-semibold rounded-DEFAULT flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">content_copy</span>
+                            Copy Snippet
+                        </button>
+<button class="px-5 py-2 bg-gradient-to-br from-primary to-on-primary-container text-on-primary font-label text-sm font-bold rounded-DEFAULT shadow-sm flex items-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-[18px]">merge</span>
+                            Open Pull Request
+                        </button>
+</div>
+</div>
+<!-- Remediation Context Card (Tonal Layering, No Borders) -->
+<div class="bg-surface-container-low rounded-lg p-6 flex flex-col gap-4">
+<h3 class="font-headline text-lg font-bold text-on-surface">Vulnerability Context</h3>
+<p class="font-body text-sm text-on-surface-variant leading-relaxed max-w-4xl">
+                        A plaintext API key was detected in the project configuration file. Hardcoding secrets exposes the application to severe credential leakage if the repository is compromised or made public. It is strongly recommended to inject secrets via environment variables at runtime.
+                    </p>
+</div>
+<!-- Code Diff Section -->
+<div class="flex flex-col gap-4">
+<h3 class="font-headline text-lg font-bold text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">difference</span> Suggested Fix
+                    </h3>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+<!-- Left: Insecure Code -->
+<div class="bg-surface-container-lowest rounded-lg overflow-hidden flex flex-col">
+<div class="bg-surface-container flex items-center justify-between px-4 py-2">
+<span class="font-label text-xs text-on-surface-variant font-medium flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-error"></span> Current Code
+                                </span>
+</div>
+<div class="p-4 font-mono text-sm leading-loose overflow-x-auto text-on-surface-variant">
+<pre><code><span class="text-outline">1</span> {
+<span class="text-outline">2</span>   "app_name": "SentinelCore",
+<span class="text-outline">3</span>   "version": "1.0.4",
+<div class="bg-error-container/30 border-l-2 border-error -mx-4 px-4 py-1 text-on-error-container"><span class="text-error mr-2">-</span>   "api_key": "sk_live_51H8A...9mPq", <span class="text-error/70 ml-4">// CRITICAL: Hardcoded Key</span></div><span class="text-outline">5</span>   "debug_mode": false,
+<span class="text-outline">6</span>   "timeout_ms": 5000
+<span class="text-outline">7</span> }</code></pre>
+</div>
+</div>
+<!-- Right: Suggested Secure Code -->
+<div class="bg-surface-container-lowest rounded-lg overflow-hidden flex flex-col">
+<div class="bg-surface-container flex items-center justify-between px-4 py-2">
+<span class="font-label text-xs text-on-surface-variant font-medium flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span> Suggested Fix
+                                </span>
+</div>
+<div class="p-4 font-mono text-sm leading-loose overflow-x-auto text-on-surface-variant">
+<pre><code><span class="text-outline">1</span> {
+<span class="text-outline">2</span>   "app_name": "SentinelCore",
+<span class="text-outline">3</span>   "version": "1.0.4",
+<div class="bg-tertiary-container/40 border-l-2 border-tertiary -mx-4 px-4 py-1 text-on-tertiary-container"><span class="text-tertiary mr-2">+</span>   "api_key": "${ENV.STRIPE_API_KEY}", <span class="text-tertiary/70 ml-4">// FIX: Environment Variable</span></div><span class="text-outline">5</span>   "debug_mode": false,
+<span class="text-outline">6</span>   "timeout_ms": 5000
+<span class="text-outline">7</span> }</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>
