@@ -84,14 +84,17 @@ class Token(BaseModel):
     token_type: str
 
 def verify_password(plain_password, hashed_password):
-    # Match the 72-byte truncation used in hashing
-    return pwd_context.verify(plain_password[:72], hashed_password)
+    # Match the SHA-256 pre-hashing used in get_password_hash
+    pre_hashed = hashlib.sha256(plain_password.encode()).hexdigest()
+    return pwd_context.verify(pre_hashed, hashed_password)
+
+import hashlib
 
 def get_password_hash(password):
-    # Bcrypt has a 72-byte limit. Truncate to be safe.
-    safe_password = password[:72]
-    print(f"DEBUG: Received password of length {len(password)}, using safe length {len(safe_password)}")
-    return pwd_context.hash(safe_password)
+    # Pre-hash with SHA-256 to bypass Bcrypt's 72-byte limit and handle all encodings.
+    # This ensures the input to Bcrypt is always a 64-character hex string.
+    pre_hashed = hashlib.sha256(password.encode()).hexdigest()
+    return pwd_context.hash(pre_hashed)
 
 def create_access_token(data: dict):
     to_encode = data.copy()
