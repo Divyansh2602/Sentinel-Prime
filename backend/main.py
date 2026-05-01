@@ -50,7 +50,12 @@ async def log_requests(request, call_next):
 
 @app.get("/health")
 async def health():
-    return {"status": "ok"}
+    try:
+        # Ping the database
+        await client.admin.command('ping')
+        return {"status": "ok", "db": "connected"}
+    except Exception as e:
+        return {"status": "ok", "db": "disconnected", "error": str(e)}
 
 # Configuration
 MONGO_URI = os.getenv("MONGO_URI", "mongodb+srv://divyansh2622005:Divyansh%40mongo1@cluster0.hz2cjji.mongodb.net/?appName=Cluster0")
