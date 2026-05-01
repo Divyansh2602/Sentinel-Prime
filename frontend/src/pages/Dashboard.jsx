@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 
 export default function Dashboard() {
   const [username, setUsername] = useState('');
+  const [currentView, setCurrentView] = useState('metrics'); // metrics, logs, scans
+  const [isScanning, setIsScanning] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -35,109 +37,275 @@ export default function Dashboard() {
     navigate('/login');
   };
 
+  const toggleScan = () => {
+    setIsScanning(true);
+    setTimeout(() => setIsScanning(false), 5000);
+  };
+
   return (
-    <div className="bg-surface text-on-surface antialiased min-h-screen flex flex-col md:flex-row">
+    <div className="bg-surface text-on-surface antialiased min-h-screen flex flex-col md:flex-row overflow-hidden">
+      {/* Background Decorative Elements */}
+      <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-0">
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/10 rounded-full blur-[120px]"></div>
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-tertiary/5 rounded-full blur-[120px]"></div>
+      </div>
+
       {/* SideNavBar (Desktop) */}
-      <aside className="hidden md:flex flex-col h-screen w-64 fixed left-0 top-0 bg-[#060e20] border-r border-slate-800/20 z-40">
-        <div className="p-6 pb-2 border-b border-surface-container/50">
-          <h2 className="font-headline font-bold text-xl text-primary tracking-tight">Sentinel Prime</h2>
-          <p className="font-label text-xs text-on-surface-variant mt-1 uppercase tracking-wider">Fortified Archive v2.4</p>
+      <aside className="hidden md:flex flex-col h-screen w-72 fixed left-0 top-0 bg-surface-container-lowest/80 backdrop-blur-xl border-r border-outline-variant/20 z-40">
+        <div className="p-8 border-b border-outline-variant/10">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-lg power-gradient-bg flex items-center justify-center shadow-[0_0_20px_rgba(123,208,255,0.4)]">
+              <span className="material-symbols-outlined text-on-primary">shield</span>
+            </div>
+            <div>
+              <h2 className="font-headline font-bold text-xl power-gradient-text tracking-tight">Sentinel Prime</h2>
+              <p className="font-label text-[10px] text-on-surface-variant uppercase tracking-[0.2em] font-bold">Security Core v2.4</p>
+            </div>
+          </div>
         </div>
-        <div className="p-4">
-          <button className="w-full py-2.5 px-4 rounded-md power-gradient-bg text-on-primary font-label text-sm font-semibold flex items-center justify-center gap-2 transition-all hover:opacity-90">
-            <span className="material-symbols-outlined text-[18px]">play_arrow</span>
-            Run Global Scan
+
+        <div className="p-6">
+          <button 
+            onClick={toggleScan}
+            disabled={isScanning}
+            className={`w-full py-3 px-4 rounded-md font-label text-sm font-bold flex items-center justify-center gap-2 transition-all active:scale-95 ${isScanning ? 'bg-surface-container-highest text-primary animate-pulse' : 'power-gradient-bg text-on-primary shadow-[0_0_20px_rgba(123,208,255,0.2)] hover:shadow-[0_0_30px_rgba(123,208,255,0.4)]'}`}
+          >
+            <span className="material-symbols-outlined text-[18px]">{isScanning ? 'sync' : 'radar'}</span>
+            {isScanning ? 'Executing Scan...' : 'Global System Scan'}
           </button>
         </div>
-        <nav className="flex-1 overflow-y-auto py-4 px-3 space-y-1">
-          <a className="flex items-center gap-3 p-3 rounded-md bg-[#2d3449] text-sky-300 font-semibold font-label text-sm transition-all ease-in-out duration-200" href="#">
-            <span className="material-symbols-outlined text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>analytics</span>
-            Security Metrics
-          </a>
-          <a className="flex items-center gap-3 p-3 rounded-md text-slate-400 font-label text-sm hover:bg-[#2d3449]/50 hover:text-white transition-all ease-in-out duration-200" href="#">
-            <span className="material-symbols-outlined text-[20px]">security</span>
-            Vulnerability Logs
-          </a>
+
+        <nav className="flex-1 overflow-y-auto px-4 space-y-2">
+          <p className="px-4 py-2 font-label text-[10px] text-on-surface-variant uppercase tracking-widest font-bold">Main Console</p>
+          <button 
+            onClick={() => setCurrentView('metrics')}
+            className={`w-full flex items-center gap-4 p-3.5 rounded-xl transition-all duration-300 ${currentView === 'metrics' ? 'bg-primary/10 text-primary border border-primary/20 shadow-[0_0_15px_rgba(123,208,255,0.1)]' : 'text-on-surface-variant hover:bg-surface-container-high/50 hover:text-on-surface'}`}
+          >
+            <span className={`material-symbols-outlined text-[22px] ${currentView === 'metrics' ? 'fill-1' : ''}`} style={{ fontVariationSettings: currentView === 'metrics' ? "'FILL' 1" : "" }}>analytics</span>
+            <span className="font-label text-sm font-semibold">Security Metrics</span>
+          </button>
+          <button 
+            onClick={() => setCurrentView('logs')}
+            className={`w-full flex items-center gap-4 p-3.5 rounded-xl transition-all duration-300 ${currentView === 'logs' ? 'bg-primary/10 text-primary border border-primary/20 shadow-[0_0_15px_rgba(123,208,255,0.1)]' : 'text-on-surface-variant hover:bg-surface-container-high/50 hover:text-on-surface'}`}
+          >
+            <span className={`material-symbols-outlined text-[22px] ${currentView === 'logs' ? 'fill-1' : ''}`} style={{ fontVariationSettings: currentView === 'logs' ? "'FILL' 1" : "" }}>security</span>
+            <span className="font-label text-sm font-semibold">Vulnerability Logs</span>
+          </button>
+          
+          <div className="pt-6">
+            <p className="px-4 py-2 font-label text-[10px] text-on-surface-variant uppercase tracking-widest font-bold">System Status</p>
+            <div className="px-4 py-3 space-y-4">
+              <div className="flex items-center justify-between">
+                <span className="font-label text-xs text-on-surface-variant">Database</span>
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-tertiary status-pulse"></span>
+                  <span className="font-label text-[10px] text-tertiary font-bold uppercase">Online</span>
+                </div>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="font-label text-xs text-on-surface-variant">API Cluster</span>
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-tertiary status-pulse"></span>
+                  <span className="font-label text-[10px] text-tertiary font-bold uppercase">Active</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </nav>
-        <div className="p-3 border-t border-surface-container/50 space-y-1">
-          <button onClick={handleLogout} className="w-full flex items-center gap-3 p-3 rounded-md text-slate-400 font-label text-sm hover:bg-[#2d3449]/50 hover:text-error transition-all ease-in-out duration-200">
-            <span className="material-symbols-outlined text-[20px]">logout</span>
-            Logout
-          </button>
-          <div className="mt-4 p-3 flex items-center gap-3">
-            <div className="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-primary font-bold">
+
+        <div className="p-6 border-t border-outline-variant/10">
+          <div className="bg-surface-container-high/50 rounded-2xl p-4 flex items-center gap-3 border border-outline-variant/10">
+            <div className="w-10 h-10 rounded-full power-gradient-bg flex items-center justify-center text-on-primary font-bold shadow-lg">
               {username ? username.charAt(0).toUpperCase() : 'U'}
             </div>
-            <div className="flex-col hidden lg:flex">
-              <span className="font-label text-xs font-semibold text-on-surface">{username || 'Operative'}</span>
-              <span className="font-label text-[10px] text-on-surface-variant">System Administrator</span>
+            <div className="flex-1 min-w-0">
+              <p className="font-label text-xs font-bold text-on-surface truncate">{username || 'Operative'}</p>
+              <p className="font-label text-[10px] text-on-surface-variant uppercase tracking-tighter">System Admin</p>
             </div>
+            <button onClick={handleLogout} className="p-2 text-on-surface-variant hover:text-error transition-colors">
+              <span className="material-symbols-outlined text-[20px]">logout</span>
+            </button>
           </div>
         </div>
       </aside>
 
       {/* Main Content Area */}
-      <main className="flex-1 md:ml-64 min-h-screen flex flex-col bg-surface">
-        <div className="hidden md:flex justify-between items-center px-8 py-6 w-full sticky top-0 z-30 bg-surface/90 backdrop-blur-md">
+      <main className="flex-1 md:ml-72 min-h-screen flex flex-col z-10 relative">
+        <header className="px-10 py-8 flex justify-between items-center sticky top-0 bg-surface/40 backdrop-blur-md z-30">
           <div>
-            <h1 className="font-headline font-extrabold text-3xl tracking-tight text-on-surface">Dashboard</h1>
-            <p className="font-label text-sm text-on-surface-variant uppercase tracking-wider mt-1">Welcome back, {username}</p>
+            <div className="flex items-center gap-2 mb-1">
+              <span className="w-2 h-2 rounded-full bg-primary status-pulse"></span>
+              <p className="font-label text-[10px] text-primary uppercase tracking-[0.3em] font-bold">Terminal Connected</p>
+            </div>
+            <h1 className="font-headline font-black text-4xl tracking-tight text-on-surface">
+              {currentView === 'metrics' ? 'Security Metrics' : 'Vulnerability Logs'}
+            </h1>
           </div>
-        </div>
+          <div className="flex gap-3">
+             <div className="glass-panel px-4 py-2 rounded-lg flex items-center gap-3 border border-outline-variant/20 hover:border-primary/30 transition-all cursor-pointer">
+                <span className="material-symbols-outlined text-primary text-[20px]">notifications</span>
+                <span className="w-5 h-5 rounded-full bg-error text-[10px] flex items-center justify-center font-bold text-on-error">3</span>
+             </div>
+             <div className="glass-panel px-4 py-2 rounded-lg flex items-center gap-3 border border-outline-variant/20">
+                <span className="material-symbols-outlined text-on-surface-variant text-[20px]">calendar_today</span>
+                <span className="font-label text-xs font-semibold">{new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
+             </div>
+          </div>
+        </header>
         
-        <div className="p-4 md:p-8 space-y-6 max-w-7xl mx-auto w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-            <div className="lg:col-span-4 bg-surface-container-low rounded-xl p-6 relative overflow-hidden flex flex-col justify-between min-h-[300px]">
-              <div className="absolute -top-24 -right-24 w-64 h-64 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
-              <div>
-                <h2 className="font-headline text-lg font-semibold text-on-surface flex items-center gap-2">
-                  <span className="material-symbols-outlined text-primary text-[20px]">shield</span>
-                  Global Security Score
-                </h2>
-                <p className="font-body text-sm text-on-surface-variant mt-1">Overall infrastructure health</p>
-              </div>
-              <div className="flex flex-col items-center justify-center flex-1 my-4">
-                <div className="relative w-40 h-40 flex items-center justify-center">
-                  <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
-                    <circle cx="50" cy="50" fill="none" r="45" stroke="#171f33" strokeWidth="8"></circle>
-                    <circle cx="50" cy="50" fill="none" r="45" stroke="#4edea3" strokeDasharray="283" strokeDashoffset="60" strokeLinecap="round" strokeWidth="8"></circle>
-                  </svg>
-                  <div className="absolute flex flex-col items-center justify-center">
-                    <span className="font-headline text-5xl font-extrabold text-tertiary tracking-tighter">78</span>
-                    <span className="font-label text-xs text-on-surface-variant uppercase tracking-widest mt-1">/ 100</span>
+        <div className="p-10 space-y-8 max-w-7xl w-full">
+          {currentView === 'metrics' ? (
+            <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                {/* Score Widget */}
+                <div className="glass-panel rounded-3xl p-8 glow-card relative overflow-hidden group">
+                  <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                    <span className="material-symbols-outlined text-6xl text-primary">security</span>
+                  </div>
+                  <h3 className="font-headline text-lg font-bold mb-6 flex items-center gap-2">
+                    <span className="w-1.5 h-6 bg-primary rounded-full"></span>
+                    Infrastructure Health
+                  </h3>
+                  <div className="flex items-end justify-between">
+                    <div>
+                      <span className="font-headline text-6xl font-black text-on-surface">78</span>
+                      <span className="font-label text-xl text-on-surface-variant ml-2">/ 100</span>
+                    </div>
+                    <div className="text-right pb-2">
+                      <p className="text-tertiary font-bold text-sm flex items-center justify-end gap-1">
+                        <span className="material-symbols-outlined text-sm">trending_up</span>
+                        +12%
+                      </p>
+                      <p className="text-[10px] text-on-surface-variant uppercase font-bold">vs last week</p>
+                    </div>
+                  </div>
+                  <div className="mt-8 h-2 bg-surface-container-highest rounded-full overflow-hidden">
+                    <div className="h-full power-gradient-bg w-[78%] rounded-full shadow-[0_0_15px_#7bd0ff]"></div>
+                  </div>
+                </div>
+
+                {/* Threat Widget */}
+                <div className="glass-panel rounded-3xl p-8 glow-card group">
+                   <h3 className="font-headline text-lg font-bold mb-6 flex items-center gap-2">
+                    <span className="w-1.5 h-6 bg-error rounded-full"></span>
+                    Active Threats
+                  </h3>
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between p-3 rounded-xl bg-error/5 border border-error/10">
+                      <div className="flex items-center gap-3">
+                        <span className="material-symbols-outlined text-error">warning</span>
+                        <span className="font-label text-sm font-semibold">Critical CVEs</span>
+                      </div>
+                      <span className="font-headline text-xl font-bold text-error">04</span>
+                    </div>
+                    <div className="flex items-center justify-between p-3 rounded-xl bg-primary/5 border border-primary/10">
+                      <div className="flex items-center gap-3">
+                        <span className="material-symbols-outlined text-primary">info</span>
+                        <span className="font-label text-sm font-semibold">Medium Risks</span>
+                      </div>
+                      <span className="font-headline text-xl font-bold text-primary">12</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Scan Status Widget */}
+                <div className="glass-panel rounded-3xl p-8 glow-card relative overflow-hidden">
+                  {isScanning && <div className="scan-line"></div>}
+                  <h3 className="font-headline text-lg font-bold mb-6 flex items-center gap-2">
+                    <span className="w-1.5 h-6 bg-tertiary rounded-full"></span>
+                    Scan Coverage
+                  </h3>
+                  <div className="flex items-center justify-center h-24">
+                     <div className="text-center">
+                        <p className="font-headline text-4xl font-black text-on-surface">94.2%</p>
+                        <p className="font-label text-[10px] text-on-surface-variant uppercase tracking-widest mt-1">Global Coverage</p>
+                     </div>
+                  </div>
+                  <div className="mt-4 flex gap-1 h-1.5">
+                    {[1,2,3,4,5,6,7,8,9,10].map(i => (
+                      <div key={i} className={`flex-1 rounded-full ${i <= 9 ? 'bg-tertiary' : 'bg-surface-container-highest'}`}></div>
+                    ))}
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div className="lg:col-span-8 bg-surface-container-low rounded-xl p-6 flex flex-col min-h-[300px]">
-              <div className="flex justify-between items-start mb-6">
-                <div>
-                  <h2 className="font-headline text-lg font-semibold text-on-surface flex items-center gap-2">
-                    <span className="material-symbols-outlined text-primary text-[20px]">warning</span>
-                    System Alerts
-                  </h2>
-                  <p className="font-body text-sm text-on-surface-variant mt-1">Recent activity and vulnerabilities</p>
+              {/* Security Alerts List */}
+              <div className="glass-panel rounded-3xl p-8">
+                <div className="flex justify-between items-center mb-8">
+                  <h3 className="font-headline text-xl font-bold">Real-time Security Feed</h3>
+                  <button className="text-primary text-xs font-bold uppercase tracking-widest hover:underline">View All History</button>
                 </div>
-              </div>
-              <div className="flex-1 flex flex-col gap-3">
-                <div className="bg-surface-container-highest p-4 rounded-lg border-l-4 border-error flex items-center justify-between">
-                   <div>
-                      <p className="font-semibold font-body text-on-surface text-sm">Critical CVE Detected in payment-gateway-v2</p>
-                      <p className="font-label text-xs text-on-surface-variant mt-1">Action required immediately</p>
-                   </div>
-                   <button className="text-primary text-sm font-semibold hover:underline">View</button>
-                </div>
-                <div className="bg-surface-container-highest p-4 rounded-lg border-l-4 border-primary flex items-center justify-between">
-                   <div>
-                      <p className="font-semibold font-body text-on-surface text-sm">Routine Scan Completed Successfully</p>
-                      <p className="font-label text-xs text-on-surface-variant mt-1">2 hours ago</p>
-                   </div>
-                   <button className="text-primary text-sm font-semibold hover:underline">Log</button>
+                <div className="space-y-4">
+                  {[
+                    { type: 'error', msg: 'High-severity vulnerability detected in Payment API', time: '2 mins ago', id: 'CVE-2024-1021' },
+                    { type: 'primary', msg: 'New repository initialized and scan queued', time: '14 mins ago', id: 'REPO-ALPHA' },
+                    { type: 'tertiary', msg: 'Successful automated patch applied to Auth layer', time: '1 hour ago', id: 'PATCH-772' }
+                  ].map((alert, i) => (
+                    <div key={i} className="flex items-center gap-4 p-5 rounded-2xl bg-surface-container-high/40 border border-outline-variant/10 hover:bg-surface-container-high transition-all group cursor-pointer">
+                      <div className={`w-12 h-12 rounded-xl flex items-center justify-center shadow-lg ${alert.type === 'error' ? 'bg-error/10 text-error' : alert.type === 'primary' ? 'bg-primary/10 text-primary' : 'bg-tertiary/10 text-tertiary'}`}>
+                        <span className="material-symbols-outlined">{alert.type === 'error' ? 'dangerous' : alert.type === 'primary' ? 'new_releases' : 'check_circle'}</span>
+                      </div>
+                      <div className="flex-1">
+                        <p className="font-body text-sm font-semibold text-on-surface group-hover:text-primary transition-colors">{alert.msg}</p>
+                        <div className="flex items-center gap-3 mt-1">
+                          <span className="font-label text-[10px] text-on-surface-variant uppercase font-bold">{alert.id}</span>
+                          <span className="w-1 h-1 bg-outline-variant rounded-full"></span>
+                          <span className="font-label text-[10px] text-on-surface-variant uppercase font-bold">{alert.time}</span>
+                        </div>
+                      </div>
+                      <button className="p-2 rounded-lg hover:bg-surface-container-highest transition-colors">
+                        <span className="material-symbols-outlined text-on-surface-variant">arrow_forward</span>
+                      </button>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
-          </div>
+          ) : (
+            <div className="animate-in fade-in slide-in-from-right-4 duration-500">
+              <div className="glass-panel rounded-3xl overflow-hidden border border-outline-variant/20">
+                <table className="w-full text-left border-collapse">
+                  <thead>
+                    <tr className="bg-surface-container-high/50 border-b border-outline-variant/20">
+                      <th className="px-8 py-5 font-label text-[10px] text-on-surface-variant uppercase tracking-widest font-bold">Severity</th>
+                      <th className="px-8 py-5 font-label text-[10px] text-on-surface-variant uppercase tracking-widest font-bold">Vulnerability</th>
+                      <th className="px-8 py-5 font-label text-[10px] text-on-surface-variant uppercase tracking-widest font-bold">Status</th>
+                      <th className="px-8 py-5 font-label text-[10px] text-on-surface-variant uppercase tracking-widest font-bold">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-outline-variant/10">
+                    {[
+                      { sev: 'Critical', name: 'SQL Injection in /api/v1/user/search', status: 'In Progress', color: 'error' },
+                      { sev: 'High', name: 'Insecure JWT Signing Secret', status: 'Open', color: 'error' },
+                      { sev: 'Medium', name: 'Cross-Site Scripting (XSS) in Comments', status: 'Mitigated', color: 'primary' },
+                      { sev: 'Low', name: 'Information Disclosure (Server Header)', status: 'Ignored', color: 'on-surface-variant' }
+                    ].map((row, i) => (
+                      <tr key={i} className="hover:bg-surface-container-high/30 transition-colors group">
+                        <td className="px-8 py-6">
+                          <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-tighter ${row.sev === 'Critical' ? 'bg-error/20 text-error' : row.sev === 'High' ? 'bg-error/10 text-error' : row.sev === 'Medium' ? 'bg-primary/20 text-primary' : 'bg-surface-container-highest text-on-surface-variant'}`}>
+                            {row.sev}
+                          </span>
+                        </td>
+                        <td className="px-8 py-6">
+                           <p className="font-body text-sm font-semibold text-on-surface group-hover:text-primary transition-colors">{row.name}</p>
+                           <p className="font-label text-[10px] text-on-surface-variant uppercase font-bold mt-1">Detected 4 hours ago • Sentinel Scan Engine</p>
+                        </td>
+                        <td className="px-8 py-6">
+                          <div className="flex items-center gap-2">
+                             <div className={`w-1.5 h-1.5 rounded-full bg-${row.color}`}></div>
+                             <span className="font-label text-xs font-semibold">{row.status}</span>
+                          </div>
+                        </td>
+                        <td className="px-8 py-6">
+                           <button className="px-4 py-1.5 rounded-lg border border-outline-variant/30 text-[10px] font-bold uppercase tracking-widest hover:bg-primary hover:text-on-primary hover:border-primary transition-all">Remediate</button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
         </div>
       </main>
     </div>
