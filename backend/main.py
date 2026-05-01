@@ -67,8 +67,8 @@ client = AsyncIOMotorClient(MONGO_URI)
 db = client.sentinel_db
 users_collection = db.get_collection("users")
 
-# Password Hashing
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+# Password Hashing (Switching to PBKDF2 to remove character limits)
+pwd_context = CryptContext(schemes=["pbkdf2_sha256"], deprecated="auto")
 
 class UserCreate(BaseModel):
     username: str
@@ -84,17 +84,10 @@ class Token(BaseModel):
     token_type: str
 
 def verify_password(plain_password, hashed_password):
-    # Match the SHA-256 pre-hashing used in get_password_hash
-    pre_hashed = hashlib.sha256(plain_password.encode()).hexdigest()
-    return pwd_context.verify(pre_hashed, hashed_password)
-
-import hashlib
+    return pwd_context.verify(plain_password, hashed_password)
 
 def get_password_hash(password):
-    # Pre-hash with SHA-256 to bypass Bcrypt's 72-byte limit and handle all encodings.
-    # This ensures the input to Bcrypt is always a 64-character hex string.
-    pre_hashed = hashlib.sha256(password.encode()).hexdigest()
-    return pwd_context.hash(pre_hashed)
+    return pwd_context.hash(password)
 
 def create_access_token(data: dict):
     to_encode = data.copy()
