@@ -10,13 +10,28 @@ import os
 app = FastAPI(title="Sentinel Prime API")
 
 # Configure CORS
+origins = [
+    "http://localhost:5173",
+    "https://sentinel-prime-beryl.vercel.app",
+    "https://sentinel-prime.vercel.app",
+    "https://sentinel-prime-4pur4n94w-divyansh2602s-projects.vercel.app",
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=False,
+    allow_origins=origins,
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Debug middleware to log requests
+@app.middleware("http")
+async def log_requests(request, call_next):
+    print(f"Incoming request: {request.method} {request.url}")
+    response = await call_next(request)
+    print(f"Response status: {response.status_code}")
+    return response
 
 @app.get("/health")
 async def health():
