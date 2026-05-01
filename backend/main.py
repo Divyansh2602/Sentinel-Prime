@@ -25,13 +25,28 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Debug middleware to log requests
+# Debug middleware to log requests and catch errors
 @app.middleware("http")
 async def log_requests(request, call_next):
-    print(f"Incoming request: {request.method} {request.url}")
-    response = await call_next(request)
-    print(f"Response status: {response.status_code}")
-    return response
+    try:
+        print(f"Incoming request: {request.method} {request.url}")
+        response = await call_next(request)
+        print(f"Response status: {response.status_code}")
+        return response
+    except Exception as e:
+        import traceback
+        print(f"CRITICAL ERROR: {str(e)}")
+        print(traceback.format_exc())
+        from fastapi.responses import JSONResponse
+        return JSONResponse(
+            status_code=500,
+            content={"detail": f"Internal Server Error: {str(e)}"},
+            headers={
+                "Access-Control-Allow-Origin": "*", # Fallback for errors
+                "Access-Control-Allow-Methods": "*",
+                "Access-Control-Allow-Headers": "*",
+            }
+        )
 
 @app.get("/health")
 async def health():
